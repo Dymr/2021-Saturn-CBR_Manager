@@ -58,12 +58,14 @@ public class HomeFragment extends Fragment {
                     if (response.isSuccessful()) {
                         List<Client> clients = response.body();
 
-                        if (clients != null) {
+                        if (clients != null & !clients.isEmpty()) {
                             Collections.sort(clients, new ClientRiskScoreComparator(ClientRiskScoreComparator.SortOrder.DESCENDING));
 
-                            List<Client> topFiveClients = clients.subList(0, 5);
+                            if (clients.size() > 5){
+                                clients = clients.subList(0, 5);
+                            }
 
-                            clientList.addAll(topFiveClients);
+                            clientList.addAll(clients);
                         }
                     }
                     adapter.notifyDataSetChanged();
