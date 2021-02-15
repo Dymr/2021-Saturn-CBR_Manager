@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.visits.VisitDetailsActivity">
+
+    <ImageView
+        android:id="@+id/visitDetailsDisplayPictureImageView"
+        android:layout_width="177dp"
+        android:layout_height="207dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toEndOf="@+id/visitDetailsNameTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/visitDetailsNameTextView"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Visit Name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/visitDetailsLocationTextView"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="24dp"
+        android:text="Location"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitDetailsNameTextView" />
+
+    <TextView
+        android:id="@+id/visitDetailsGenderTextView"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="4dp"
+        android:text="Gender"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitDetailsLocationTextView" />
+
+    <TextView
+        android:id="@+id/visitDetailsAgeTextView"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="Age"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitDetailsGenderTextView" />
+
+    <TextView
+        android:id="@+id/visitDetailsDisabilityTextView"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="Disability"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitDetailsAgeTextView" />
+
+    <TextView
+        android:id="@+id/visitDetailsRiskLevelTextView"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="Risk Level"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitDetailsSocialTextView" />
+
+    <TextView
+        android:id="@+id/visitDetailsHealthTextView"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="Health"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitDetailsDisabilityTextView" />
+
+    <TextView
+        android:id="@+id/visitDetailsEducationTextView"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="Education"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitDetailsHealthTextView" />
+
+    <TextView
+        android:id="@+id/visitDetailsSocialTextView"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="Social"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitDetailsEducationTextView" />
+
+    <Button
+        android:id="@+id/visitDetailsBackButton"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="420dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitDetailsDisplayPictureImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

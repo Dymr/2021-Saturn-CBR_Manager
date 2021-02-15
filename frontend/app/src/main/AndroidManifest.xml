@@ -15,6 +15,10 @@
         android:theme="@style/Theme.Cbr_manager"
         tools:targetApi="n">
         <activity
+            android:name=".visit_item"
+            android:label="@string/title_activity_visit_item"
+            android:theme="@style/Theme.Cbr_manager.NoActionBar"></activity>
+        <activity
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/Theme.Cbr_manager.NoActionBar" />
@@ -26,7 +30,7 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Cbr_manager.NoActionBar">
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -51,4 +55,5 @@
             android:name=".ui.create_client.PhotoActivity"
             android:screenOrientation="portrait" />
     </application>
+
 </manifest>
