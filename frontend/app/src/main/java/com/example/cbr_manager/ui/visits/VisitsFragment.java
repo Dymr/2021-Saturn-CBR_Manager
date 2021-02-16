@@ -89,11 +89,11 @@ public class VisitsFragment extends Fragment implements VisitsRecyclerItemAdapte
     @Override
     public void onItemClick(int position) {
 
-        Intent clientInfoIntent = new Intent(getContext(), VisitDetailsActivity.class);
+        Intent visitInfoIntent = new Intent(getContext(), VisitDetailsActivity.class);
 
         VisitsRecyclerItem visitsRecyclerItem = visitsRecyclerItems.get(position);
-        clientInfoIntent.putExtra("clientId", visitsRecyclerItem.getVisit().getId());
+        visitInfoIntent.putExtra("visitId", visitsRecyclerItem.getVisit().getId());
 
-        startActivity(clientInfoIntent);
+        startActivity(visitInfoIntent);
     }
 }

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.service.APIService;
-import com.example.cbr_manager.service.client.Client;
+import com.example.cbr_manager.service.visit.Visit;
 import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
@@ -28,12 +28,12 @@ public class VisitDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_details);
+        setContentView(R.layout.activity_visit_details);
         parentLayout = findViewById(android.R.id.content);
 
         Intent intent = getIntent();
-        int clientId = intent.getIntExtra("clientId", -1);
-        getClientInfo(clientId);
+        int visitId = intent.getIntExtra("visitId", -1);
+        getVisitInfo(visitId);
 
         setupButtons();
         setupTextViews();
@@ -41,32 +41,32 @@ public class VisitDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void getClientInfo(int clientId){
-        apiService.clientService.getClient(clientId).enqueue(new Callback<Client>() {
+    private void getVisitInfo(int visitId){
+        apiService.visitService.getVisit(visitId).enqueue(new Callback<Visit>() {
             @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
+            public void onResponse(Call<Visit> call, Response<Visit> response) {
 
                 if(response.isSuccessful()){
-                    Client client = response.body();
+                    Visit visit = response.body();
 
-                    // Todo: dynamically set the client info here
-                    setupNameTextView(client.getFullName());
+                    // Todo: dynamically set the visit info here
+                    setupNameTextView(visit.getFullName());
                 } else{
-                    Snackbar.make(parentLayout, "Failed to get the client. Please try again", Snackbar.LENGTH_LONG)
+                    Snackbar.make(parentLayout, "Failed to get the visit. Please try again", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Client> call, Throwable t) {
-                Snackbar.make(parentLayout, "Failed to get the client. Please try again", Snackbar.LENGTH_LONG)
+            public void onFailure(Call<Visit> call, Throwable t) {
+                Snackbar.make(parentLayout, "Failed to get the visit. Please try again", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
     }
 
     private void setupImageViews() {
-        ImageView displayPicture = findViewById(R.id.clientDetailsDisplayPictureImageView);
+        ImageView displayPicture = findViewById(R.id.visitDetailsDisplayPictureImageView);
         displayPicture.setImageResource(R.drawable.client_details_placeholder2);
     }
 
@@ -82,48 +82,48 @@ public class VisitDetailsActivity extends AppCompatActivity {
     }
 
     private void setupNameTextView(String fullName) {
-        TextView nameTextView = findViewById(R.id.clientDetailsNameTextView);
+        TextView nameTextView = findViewById(R.id.visitDetailsNameTextView);
         // TODO: Fill this TextView with information from the backend
         nameTextView.setText(fullName);
     }
 
     private void setupLocationTextView() {
-        TextView locationTextView = findViewById(R.id.clientDetailsLocationTextView);
+        TextView locationTextView = findViewById(R.id.visitDetailsLocationTextView);
         locationTextView.setText("Location: BidiBidi Zone 1");
     }
 
     private void setupGenderTextView() {
-        TextView genderTextView = findViewById(R.id.clientDetailsGenderTextView);
+        TextView genderTextView = findViewById(R.id.visitDetailsGenderTextView);
         genderTextView.setText("Gender: Male");
     }
 
     private void setupAgeTextView() {
-        TextView ageTextView = findViewById(R.id.clientDetailsAgeTextView);
+        TextView ageTextView = findViewById(R.id.visitDetailsAgeTextView);
         ageTextView.setText("Age: 50");
     }
 
     private void setupDisabilityTextView() {
-        TextView disabilityTextView = findViewById(R.id.clientDetailsDisabilityTextView);
+        TextView disabilityTextView = findViewById(R.id.visitDetailsDisabilityTextView);
         disabilityTextView.setText("Disability: Unable to walk");
     }
 
     private void setupRiskLevelTextView() {
-        TextView riskLevelTextView = findViewById(R.id.clientDetailsRiskLevelTextView);
+        TextView riskLevelTextView = findViewById(R.id.visitDetailsRiskLevelTextView);
         riskLevelTextView.setText("Risk Level: Critical");
     }
 
     private void setupHealthTextView() {
-        TextView healthTextView = findViewById(R.id.clientDetailsHealthTextView);
+        TextView healthTextView = findViewById(R.id.visitDetailsHealthTextView);
         healthTextView.setText("Health: Critical");
     }
 
     private void setupEducationTextView() {
-        TextView educationTextView = findViewById(R.id.clientDetailsEducationTextView);
+        TextView educationTextView = findViewById(R.id.visitDetailsEducationTextView);
         educationTextView.setText("Education: Bachelors Degree");
     }
 
     private void setupSocialTextView() {
-        TextView socialTextView = findViewById(R.id.clientDetailsSocialTextView);
+        TextView socialTextView = findViewById(R.id.visitDetailsSocialTextView);
         socialTextView.setText("Social: Very Active");
     }
 
@@ -132,7 +132,7 @@ public class VisitDetailsActivity extends AppCompatActivity {
     }
 
     private void setupBackButton() {
-        Button backButton = findViewById(R.id.clientDetailsBackButton);
+        Button backButton = findViewById(R.id.visitDetailsBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
