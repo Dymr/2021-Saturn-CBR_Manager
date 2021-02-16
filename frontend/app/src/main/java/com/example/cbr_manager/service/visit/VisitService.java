@@ -2,7 +2,7 @@ package com.example.cbr_manager.service.visit;
 
 import com.example.cbr_manager.BuildConfig;
 import com.example.cbr_manager.helper.Helper;
-import com.example.cbr_manager.service.auth.AuthToken;
+import com.example.cbr_manager.service.auth.AuthResponse;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ public class VisitService {
 
     private static final String BASE_URL = BuildConfig.API_URL;
 
-    private final AuthToken authToken;
+    private final AuthResponse authToken;
 
     private final String authHeader;
 
     private VisitAPI visitAPI;
 
-    public VisitService(AuthToken auth) {
+    public VisitService(AuthResponse auth) {
         this.authToken = auth;
 
         this.authHeader = Helper.formatTokenHeader(this.authToken);
@@ -49,7 +49,7 @@ public class VisitService {
     }
 
     public Call<Visit> getVisit(int visitId) {
-        return this.visitAPI.getVisits(authHeader, visitId);
+        return this.visitAPI.getVisit(authHeader, visitId);
     }
 
 }

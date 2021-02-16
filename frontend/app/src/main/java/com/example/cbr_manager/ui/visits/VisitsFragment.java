@@ -16,6 +16,7 @@ import com.example.cbr_manager.service.APIService;
 import com.example.cbr_manager.service.visit.Visit;
 import com.example.cbr_manager.ui.visits.VisitDetailsActivity;
 
+import java.sql.Timestamp;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,8 +71,8 @@ public class VisitsFragment extends Fragment implements VisitsRecyclerItemAdapte
                     if (response.isSuccessful()) {
                         List<Visit> visitList = response.body();
                         for (Visit visit : visitList) {
-                            Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            String s = formatter.format(visit.getDate());
+//                            Timestamp timestamp = visit.getTimestamp();
+//                            String s = timestamp.toString();
                             visitUIList.add(new VisitsRecyclerItem(R.drawable.dog, visit.getFullName(), "Burnaby Region", visit));
                         }
                     }

@@ -1,56 +1,40 @@
 package com.example.cbr_manager.service.visit;
 
+import com.example.cbr_manager.service.client.Client;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Visit {
-    @SerializedName("first_name")
-    private String firstName;
+    @SerializedName("datetime_created")
+    @Expose
+    private Timestamp datetimeCreated;
+    @SerializedName("user_creator")
+    @Expose
+    private Integer userCreator;
+    @SerializedName("client")
+    @Expose
+    private Integer clientID;
 
-    @SerializedName("last_name")
-    private String lastName;
-
-    private Date date;
-
-    private final int id;
-
-    public Visit(String firstName, String lastName, Date date, int id) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.date = date;
-        this.id = id;
+    public Client getClient() {
+        return client;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public int getId() {
         return id;
     }
 
-    public Date getDate() {
-        return date;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public String getFullName() {
-        return this.getFirstName() + " " + this.getLastName();
-    }
 }
