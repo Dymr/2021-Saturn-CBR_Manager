@@ -1,19 +1,11 @@
 package com.example.cbr_manager.ui.login;
 
 import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,16 +15,27 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.cbr_manager.NavigationActivity;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.service.APIService;
+import com.example.cbr_manager.service.auth.AuthResponse;
 import com.example.cbr_manager.service.auth.LoginUserPass;
+import com.google.android.material.snackbar.Snackbar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private LoginViewModel loginViewModel;
-
     private static APIService apiService = APIService.getInstance();
+    private LoginViewModel loginViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,8 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
+//                //Complete and destroy login activity once successful
+//                finish();
             }
         });
 
@@ -118,14 +121,29 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
 
                 LoginUserPass credential = new LoginUserPass(usernameEditText.getText().toString(), passwordEditText.getText().toString());
-                apiService.authenticate(credential);
+                apiService.authenticate(credential, new Callback<AuthResponse>() {
+                    @Override
+                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                        if (apiService.isAuthenticated()) {
+                            loginViewModel.login(credential.username,
+                                    credential.password);
+                            Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Snackbar.make(v, "Error " + Integer.toString(response.code()) + " Could not authenticate", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+                        loadingProgressBar.setVisibility(View.INVISIBLE);
+                    }
 
-                Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
-                startActivity(intent);
+                    @Override
+                    public void onFailure(Call<AuthResponse> call, Throwable t) {
+                        // TODO: handle a critical failure
+                        loadingProgressBar.setVisibility(View.INVISIBLE);
+                    }
+                });
             }
         });
 

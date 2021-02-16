@@ -12,22 +12,22 @@ public class AuthService {
 
     private final LoginUserPass loginUserPass;
 
-    private AuthToken authToken;
+    private AuthResponse authToken;
 
     public AuthService(LoginUserPass loginUserPass) {
         this.loginUserPass = loginUserPass; // Todo: credentials are stored in plaintext!
     }
 
-    public Call<AuthToken> fetchAuthToken() {
+    public Call<AuthResponse> fetchAuthToken() {
         AuthAPI authAPI = getAuthAPI();
         return authAPI.getToken(loginUserPass);
     }
 
-    public AuthToken getAuthToken() {
+    public AuthResponse getAuthToken() {
         return this.authToken;
     }
 
-    public void setAuthToken(AuthToken authToken) {
+    public void setAuthToken(AuthResponse authToken) {
         this.authToken = authToken;
     }
 

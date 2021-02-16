@@ -4,7 +4,7 @@
 
 1. Run your server at 0.0.0.0 on port 8000
 
-   `python runserver 0.0.0.0:8000`
+   `python manage.py runserver 0.0.0.0:8000`
 
    
 

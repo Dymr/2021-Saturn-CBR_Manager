@@ -2,6 +2,8 @@ from django.db import models
 
 
 # Create your models here.
+
+
 class Client(models.Model):
     """
     The clients that get visited by CBR members
@@ -19,7 +21,7 @@ class Client(models.Model):
     contact_client = models.IntegerField(default=0)
     care_present = models.CharField(max_length=5)
     contact_care = models.IntegerField(default=0)
-    photo = models.ImageField(upload_to='images/', default='default.png')
+    photo = models.ImageField(upload_to='images/', default='images/default.png')
     disability = models.CharField(max_length=50)
 
     # Extra text field for Client information(Health/Education... etc)

@@ -25,4 +25,7 @@ public interface UserAPI {
 
     @POST("api/users/")
     Call<User> createUser(@Header("Authorization") String authHeader, @Body User user);
+
+    @GET("api/users/current_user")
+    Call<User> getCurrentUser(@Header("Authorization") String authHeader);
 }

@@ -118,7 +118,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager2"
+                android:id="@+id/clientPriorityList"
                 android:layout_width="match_parent"
                 android:layout_height="192dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewPager2"
+                app:layout_constraintTop_toBottomOf="@+id/clientPriorityList"
                 app:layout_constraintVertical_bias="0.0"
                 tools:layout_editor_absoluteX="28dp">
 
@@ -144,7 +144,7 @@
                     app:backgroundTint="#FFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/viewPager2" />
+                    app:layout_constraintTop_toBottomOf="@+id/clientPriorityList" />
 
                 <Button
                     android:id="@+id/addClientButton"

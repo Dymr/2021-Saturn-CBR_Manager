@@ -1,34 +1,40 @@
 package com.example.cbr_manager.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.helper.Helper;
+import com.example.cbr_manager.service.client.Client;
+import com.example.cbr_manager.ui.clientdetails.ClientDetailsActivity;
 
 import java.util.List;
 
 public class ViewPagerAdapter extends PagerAdapter {
 
-    private List<ViewPagerModel> models;
+    private final FragmentActivity activity;
+    private List<Client> clients;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public ViewPagerAdapter(List<ViewPagerModel> models, Context context) {
-        this.models = models;
+    public ViewPagerAdapter(Context context, FragmentActivity activity, List<Client> clients) {
+        this.clients = clients;
         this.context = context;
+        this.activity = activity;
     }
 
     @Override
     public int getCount() {
-        return models.size();
+        return clients.size();
     }
 
     @Override
@@ -39,33 +45,42 @@ public class ViewPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
+
         layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.card_item, container, false);
 
-        ImageView imageView;
-        TextView name, place;
+        Client client = clients.get(position);
 
-        imageView = view.findViewById(R.id.imageView2);
-        name = view.findViewById(R.id.textView2);
-        place = view.findViewById(R.id.textView3);
+        ImageView imageView = view.findViewById(R.id.imageClient);
+        Helper.setImageViewFromURL(client.getPhotoURL(), imageView);
 
-        imageView.setImageResource(models.get(position).getImage());
-        name.setText(models.get(position).getName());
-        place.setText(models.get(position).getLocation());
+        TextView fullName = view.findViewById(R.id.textFullName);
+        fullName.setText(client.getFullName());
+
+        TextView location = view.findViewById(R.id.textLocation);
+        location.setText(client.getLocation());
+
+        TextView riskScore = view.findViewById(R.id.textScore);
+        riskScore.setText(Integer.toString(client.getRiskScore()));
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Priority client position " + position + " selected." , Toast.LENGTH_SHORT).show();
+                Intent clientInfoIntent = new Intent(context, ClientDetailsActivity.class);
+
+                clientInfoIntent.putExtra("clientId", client.getId());
+
+                activity.startActivity(clientInfoIntent);
             }
         });
 
         container.addView(view, 0);
+
         return view;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 }

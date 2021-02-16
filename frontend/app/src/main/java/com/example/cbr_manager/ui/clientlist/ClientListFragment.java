@@ -60,7 +60,7 @@ public class ClientListFragment extends Fragment implements ClientListRecyclerIt
                     if (response.isSuccessful()) {
                         List<Client> clientList = response.body();
                         for (Client client : clientList) {
-                            clientUIList.add(new ClientListRecyclerItem(R.drawable.dog, client.getFullName(), "Burnaby Region", client));
+                            clientUIList.add(new ClientListRecyclerItem(R.drawable.dog, client.getFullName(), client.getLocation(), client));
                         }
                     }
                     adapter.notifyDataSetChanged();

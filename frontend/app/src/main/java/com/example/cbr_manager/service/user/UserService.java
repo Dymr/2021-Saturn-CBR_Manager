@@ -2,7 +2,7 @@ package com.example.cbr_manager.service.user;
 
 import com.example.cbr_manager.BuildConfig;
 import com.example.cbr_manager.helper.Helper;
-import com.example.cbr_manager.service.auth.AuthToken;
+import com.example.cbr_manager.service.auth.AuthResponse;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ public class UserService {
 
     private static final String BASE_URL = BuildConfig.API_URL;
 
-    private final AuthToken authToken;
+    private final AuthResponse authToken;
 
     private final String authHeader;
 
     private UserAPI userAPI;
 
-    public UserService(AuthToken auth) {
+    public UserService(AuthResponse auth) {
         this.authToken = auth;
 
         this.authHeader = Helper.formatTokenHeader(this.authToken);
@@ -54,6 +54,10 @@ public class UserService {
 
     public Call<User> getUser(int userId) {
         return this.userAPI.getUser(authHeader, userId);
+    }
+
+    public Call<User> getCurrentUser(){
+        return this.userAPI.getCurrentUser(authHeader);
     }
 
 }

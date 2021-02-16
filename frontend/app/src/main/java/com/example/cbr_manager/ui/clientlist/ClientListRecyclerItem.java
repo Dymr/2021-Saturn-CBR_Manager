@@ -9,10 +9,10 @@ public class ClientListRecyclerItem {
 
     private Client client;
 
-    public ClientListRecyclerItem(int mImageResource, String mText1, String mText2, Client client) {
+    public ClientListRecyclerItem(int mImageResource, String name, String location, Client client) {
         this.mImageResource = mImageResource;
-        this.mText1 = mText1;
-        this.mText2 = mText2;
+        this.mText1 = name;
+        this.mText2 = location;
         this.client = client;
     }
 
