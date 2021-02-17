@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cbr_manager"
         tools:targetApi="n">
+        <activity android:name=".ui.createvisit.CreateVisitActivity" >
+        </activity>
         <activity
             android:name=".visit_item"
             android:label="@string/title_activity_visit_item"
@@ -25,6 +27,11 @@
         <activity
             android:name=".ui.clientdetails.ClientDetailsActivity"
             android:label=".ClientDetailsActivity"
+            android:theme="@style/Theme.Cbr_manager.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".ui.usercreation.UserCreationActivity"
+            android:label=".UserCreationActivity"
             android:theme="@style/Theme.Cbr_manager.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"

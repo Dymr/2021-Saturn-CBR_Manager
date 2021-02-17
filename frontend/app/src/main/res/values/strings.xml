@@ -75,5 +75,37 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua... </string>
+<<<<<<< HEAD
     <string name="title_activity_visit_item">visit_item</string>
+=======
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="health_provisions">Health Provisions</string>
+    <string name="what_was_provided">What was provided?</string>
+    <string name="purpose_for_visit">Purpose for visit</string>
+    <string name="cbr">CBR</string>
+    <string name="disability_centre_referral">Disability centre referral</string>
+    <string name="disability_centre_referral_follow_up">Disability centre referral follow up</string>
+    <string name="cbr_type">CBR Type</string>
+    <string name="health">Health</string>
+    <string name="education">Education</string>
+    <string name="social">Social</string>
+    <string name="date_of_visit">Date of visit</string>
+    <string name="name_of_client">Name of client</string>
+    <string name="client_name">Client Name</string>
+    <string name="name_of_cbr_worker">Name of CBR Worker</string>
+    <string name="create_visit">Create Visit</string>
+    <string name="cbr_worker_name">CBR Worker Name</string>
+    <string-array name="locationsArray">
+        <item>BidiBidi Zone 1</item>
+        <item>BidiBidi Zone 2</item>
+        <item>BidiBidi Zone 3</item>
+        <item>BidiBidi Zone 4</item>
+        <item>BidiBidi Zone 5</item>
+        <item>Palorinya Basecamp</item>
+        <item>Palorinya Zone 1</item>
+        <item>Palorinya Zone 2</item>
+        <item>Palorinya Zone 3</item>
+    </string-array>
+>>>>>>> 17e2b141a76d118fb50c2c86889f8622225fe8f4
 </resources>

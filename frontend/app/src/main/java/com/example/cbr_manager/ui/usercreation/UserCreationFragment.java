@@ -60,7 +60,7 @@ public class UserCreationFragment extends Fragment {
     }
 
     public void sendUserCreateRequest() {
-        User user = new User(editTextUserName.getText().toString(),editTextPassword.getText().toString(),editTextEmail.getText().toString(),"Jane","Doe");
+        User user = new User(editTextUserName.getText().toString(),editTextPassword.getText().toString(),editTextEmail.getText().toString(),"Jane","Doe", 0);
         Call<User> call = apiService.userService.createUser(user);
         call.enqueue(new Callback<User>() {
             @Override

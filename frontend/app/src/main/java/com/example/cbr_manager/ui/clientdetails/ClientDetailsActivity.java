@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.service.APIService;
 import com.example.cbr_manager.service.client.Client;
+import com.example.cbr_manager.ui.createvisit.CreateVisitActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
@@ -22,7 +23,7 @@ public class ClientDetailsActivity extends AppCompatActivity {
 
 
     private APIService apiService = APIService.getInstance();
-
+    private int clientId = -1;
     private View parentLayout;
 
     @Override
@@ -34,6 +35,8 @@ public class ClientDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int clientId = intent.getIntExtra("clientId", -1);
         getClientInfo(clientId);
+
+        this.clientId = clientId;
 
         setupButtons();
         setupTextViews();
@@ -129,6 +132,21 @@ public class ClientDetailsActivity extends AppCompatActivity {
 
     private void setupButtons() {
         setupBackButton();
+        setupNewVisitButton();
+    }
+
+    private void setupNewVisitButton() {
+        Button newVisitButton = findViewById(R.id.clientDetailsNewVisitButton);
+        newVisitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView nameTextView = (TextView) findViewById(R.id.clientDetailsNameTextView);
+                String name = nameTextView.getText().toString();
+                Intent intent = new Intent(ClientDetailsActivity.this, CreateVisitActivity.class);
+                intent.putExtra("clientId", clientId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setupBackButton() {
