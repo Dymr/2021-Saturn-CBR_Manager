@@ -2,6 +2,7 @@ package com.example.cbr_manager.service.client;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -28,6 +29,10 @@ public interface ClientAPI {
 
     @POST("api/clients/")
     Call<Client> createClient(@Header("Authorization") String authHeader, @Body Client client);
+
+    @Multipart
+    @POST("api/clients/{id}/upload")
+    Call uploadPhoto(@Header("Authorization") String authHeader, @Path("id") int id, @Part MultipartBody.Part photo);
 
     @Multipart
     @POST("api/clients/")

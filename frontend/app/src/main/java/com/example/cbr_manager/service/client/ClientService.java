@@ -6,9 +6,11 @@ import com.example.cbr_manager.service.auth.AuthResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.util.List;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -92,6 +94,12 @@ public class ClientService {
 
     public Call<Client> createClient(Client client){
         return this.clientAPI.createClient(authHeader, client);
+    }
+
+    public Call uploadClientPhoto(File file){
+        RequestBody requestFile = RequestBody.create(file,MediaType.parse("multipart/form-data"));
+        MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), requestFile);
+        return this.clientAPI.uploadPhoto(authHeader, body);
     }
 
 }

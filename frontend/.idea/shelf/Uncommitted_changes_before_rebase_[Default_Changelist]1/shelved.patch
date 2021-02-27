@@ -1,0 +1,90 @@
+Index: app/src/main/java/com/example/cbr_manager/ui/home/HomeFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.cbr_manager.ui.home;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.lifecycle.ViewModelProvider;\r\nimport androidx.navigation.fragment.NavHostFragment;\r\nimport androidx.viewpager.widget.ViewPager;\r\n\r\nimport com.example.cbr_manager.R;\r\nimport com.example.cbr_manager.service.APIService;\r\nimport com.example.cbr_manager.service.alert.Alert;\r\nimport com.example.cbr_manager.service.client.Client;\r\nimport com.example.cbr_manager.service.client.ClientRiskScoreComparator;\r\nimport com.example.cbr_manager.service.visit.Visit;\r\nimport com.example.cbr_manager.ui.alert.alert_details.AlertDetailsActivity;\r\nimport com.example.cbr_manager.ui.create_client.CreateClientActivity;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.List;\r\n\r\nimport retrofit2.Call;\r\nimport retrofit2.Callback;\r\nimport retrofit2.Response;\r\n\r\npublic class HomeFragment extends Fragment {\r\n\r\n    private final APIService apiService = APIService.getInstance();\r\n    ViewPager viewPager;\r\n    ViewPagerAdapter adapter;\r\n    List<Client> clientViewPagerList = new ArrayList<>();\r\n    Alert newestAlert;\r\n    TextView seeMoreTextView;\r\n    TextView dateAlertTextView;\r\n    TextView titleTextView;\r\n    int homeAlertId;\r\n\r\n    private HomeViewModel homeViewModel;\r\n    View root;\r\n\r\n    public View onCreateView(@NonNull LayoutInflater inflater,\r\n                             ViewGroup container, Bundle savedInstanceState) {\r\n        homeViewModel =\r\n                new ViewModelProvider(this).get(HomeViewModel.class);\r\n        root = inflater.inflate(R.layout.fragment_home, container, false);\r\n        fetchNewestAlert();\r\n        setupViewPager(root, clientViewPagerList);\r\n        setupButtons(root);\r\n        setupImageViews(root);\r\n        setAlertButtons();\r\n\r\n        fetchTopFiveRiskiestClients(clientViewPagerList);\r\n\r\n        setupVisitStats(root);\r\n\r\n        return root;\r\n    }\r\n\r\n    private void setupImageViews(View root) {\r\n        ImageView totalVisits = root.findViewById(R.id.dashboardTotalVisitsImageView);\r\n        totalVisits.setImageResource(R.drawable.ic_date);\r\n        ImageView clientsVisited = root.findViewById(R.id.dashboardClientsVisitedImageView);\r\n        clientsVisited.setImageResource(R.drawable.ic_clients);\r\n        ImageView regionsVisited = root.findViewById(R.id.dashboardRegionsImageView);\r\n        regionsVisited.setImageResource(R.drawable.ic_place);\r\n    }\r\n\r\n    private void setupVisitStats(View root) {\r\n        if (apiService.isAuthenticated()) {\r\n            apiService.visitService.getVisits().enqueue(new Callback<List<Visit>>() {\r\n                @Override\r\n                public void onResponse(Call<List<Visit>> call, Response<List<Visit>> response) {\r\n                    if (response.isSuccessful()) {\r\n                        List<Visit> visits = response.body();\r\n                        int totalVisits = visits.size();\r\n\r\n                        TextView totalNumberVisits = root.findViewById(R.id.totalVisitsNumberTextView);\r\n                        totalNumberVisits.setText(Integer.toString(totalVisits));\r\n                        List<String> differentLocations = new ArrayList<>();\r\n                        List<Integer> differentClients = new ArrayList<>();\r\n                        for (Visit eachVisit : visits) {\r\n                            if (!differentClients.contains(eachVisit.getClientID())) {\r\n                                differentClients.add(eachVisit.getClientID());\r\n                            }\r\n                            if (!differentLocations.contains(eachVisit.getClient().getLocationDropDown())) {\r\n                                differentLocations.add(eachVisit.getClient().getLocationDropDown());\r\n                            }\r\n                        }\r\n\r\n                        TextView totalClientsVisited = root.findViewById(R.id.clientsVisitedNumberTextView);\r\n                        totalClientsVisited.setText(Integer.toString(differentClients.size()));\r\n\r\n                        TextView totalLocationsVisited = root.findViewById(R.id.regionsVisitedNumberTextView);\r\n                        totalLocationsVisited.setText(Integer.toString(differentLocations.size()));\r\n                    }\r\n                }\r\n\r\n                @Override\r\n                public void onFailure(Call<List<Visit>> call, Throwable t) {\r\n\r\n                }\r\n            });\r\n        }\r\n    }\r\n\r\n    public void fetchNewestAlert() {\r\n        dateAlertTextView = root.findViewById(R.id.dateAlertTextView);\r\n        titleTextView = root.findViewById(R.id.announcementTextView);\r\n        if (apiService.isAuthenticated()) {\r\n            apiService.alertService.getAlerts().enqueue(new Callback<List<Alert>>() {\r\n                @Override\r\n                public void onResponse(Call<List<Alert>> call, Response<List<Alert>> response) {\r\n                    if (response.isSuccessful()) {\r\n                        List<Alert> alerts = response.body();\r\n\r\n                        if (alerts != null & !alerts.isEmpty()) {\r\n                            newestAlert = alerts.get(0);\r\n                            newestAlert.formatDate();\r\n                            dateAlertTextView.setText(\"Date posted:  \" +newestAlert.getDate());\r\n                            titleTextView.setText(newestAlert.getTitle());\r\n                            homeAlertId = newestAlert.getId();\r\n                        }\r\n\r\n                    }\r\n                }\r\n\r\n                @Override\r\n                public void onFailure(Call<List<Alert>> call, Throwable t) {\r\n\r\n                }\r\n            });\r\n        }\r\n    }\r\n\r\n\r\n    public void setAlertButtons(){\r\n        seeMoreTextView = root.findViewById(R.id.seeMoreTextView);\r\n        titleTextView.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Intent intent = new Intent(getContext(), AlertDetailsActivity.class);\r\n                intent.putExtra(\"alertId\", homeAlertId);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n        seeMoreTextView.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                NavHostFragment.findNavController(HomeFragment.this)\r\n                        .navigate(R.id.action_nav_dashboard_to_nav_alert_list);\r\n            }\r\n        });\r\n    }\r\n\r\n    public void fetchTopFiveRiskiestClients(List<Client> clientList) {\r\n        if (apiService.isAuthenticated()) {\r\n            apiService.clientService.getClients().enqueue(new Callback<List<Client>>() {\r\n                @Override\r\n                public void onResponse(Call<List<Client>> call, Response<List<Client>> response) {\r\n                    if (response.isSuccessful()) {\r\n                        List<Client> clients = response.body();\r\n\r\n                        if (clients != null & !clients.isEmpty()) {\r\n                            Collections.sort(clients, new ClientRiskScoreComparator(ClientRiskScoreComparator.SortOrder.DESCENDING));\r\n\r\n                            List<Client> topFiveClients = null;\r\n                            if (clients.size() > 5) {\r\n                                topFiveClients = clients.subList(0, 5);\r\n                            } else {\r\n                                topFiveClients = clients;\r\n                            }\r\n\r\n                            clientList.addAll(topFiveClients);\r\n                        }\r\n                    }\r\n                    adapter.notifyDataSetChanged();\r\n                }\r\n\r\n                @Override\r\n                public void onFailure(Call<List<Client>> call, Throwable t) {\r\n\r\n                }\r\n            });\r\n        }\r\n    }\r\n\r\n    private void setupButtons(View root) {\r\n        Button allClientsButton = (Button) root.findViewById(R.id.allClientsButton);\r\n        allClientsButton.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                NavHostFragment.findNavController(HomeFragment.this)\r\n                        .navigate(R.id.action_nav_dashboard_to_nav_client_list);\r\n            }\r\n        });\r\n\r\n        Button button = (Button) root.findViewById(R.id.addClientButton);\r\n        button.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Intent intent = new Intent(getContext(), CreateClientActivity.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n    }\r\n\r\n    private void setupViewPager(View root, List<Client> clientList) {\r\n        adapter = new ViewPagerAdapter(getContext(), this.getActivity(), clientList);\r\n        viewPager = root.findViewById(R.id.clientPriorityList);\r\n        viewPager.setAdapter(adapter);\r\n        viewPager.setClipToPadding(false);\r\n        viewPager.setPadding(220, 0, 220, 0);\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/cbr_manager/ui/home/HomeFragment.java	(revision 526eccbe4814ff0d9cf178ff8db3a8cb97ff1391)
++++ app/src/main/java/com/example/cbr_manager/ui/home/HomeFragment.java	(date 1614389654273)
+@@ -20,6 +20,8 @@
+ import com.example.cbr_manager.service.alert.Alert;
+ import com.example.cbr_manager.service.client.Client;
+ import com.example.cbr_manager.service.client.ClientRiskScoreComparator;
++import com.example.cbr_manager.service.referral.Referral;
++import com.example.cbr_manager.service.referral.ReferralService;
+ import com.example.cbr_manager.service.visit.Visit;
+ import com.example.cbr_manager.ui.alert.alert_details.AlertDetailsActivity;
+ import com.example.cbr_manager.ui.create_client.CreateClientActivity;
+@@ -43,9 +45,8 @@
+     TextView dateAlertTextView;
+     TextView titleTextView;
+     int homeAlertId;
+-
+-    private HomeViewModel homeViewModel;
+     View root;
++    private HomeViewModel homeViewModel;
+ 
+     public View onCreateView(@NonNull LayoutInflater inflater,
+                              ViewGroup container, Bundle savedInstanceState) {
+@@ -62,6 +63,8 @@
+ 
+         setupVisitStats(root);
+ 
++        testing_referral();
++
+         return root;
+     }
+ 
+@@ -125,7 +128,7 @@
+                         if (alerts != null & !alerts.isEmpty()) {
+                             newestAlert = alerts.get(0);
+                             newestAlert.formatDate();
+-                            dateAlertTextView.setText("Date posted:  " +newestAlert.getDate());
++                            dateAlertTextView.setText("Date posted:  " + newestAlert.getDate());
+                             titleTextView.setText(newestAlert.getTitle());
+                             homeAlertId = newestAlert.getId();
+                         }
+@@ -142,7 +145,7 @@
+     }
+ 
+ 
+-    public void setAlertButtons(){
++    public void setAlertButtons() {
+         seeMoreTextView = root.findViewById(R.id.seeMoreTextView);
+         titleTextView.setOnClickListener(new View.OnClickListener() {
+             @Override
+@@ -221,5 +224,32 @@
+         viewPager.setPadding(220, 0, 220, 0);
+     }
+ 
++    private void testing_referral() {
++        ReferralService referralService = this.apiService.getReferralService();
++        referralService.getReferral(1).enqueue(new Callback<Referral>() {
++            @Override
++            public void onResponse(Call<Referral> call, Response<Referral> response) {
++                Referral referral = response.body();
++
++                referralService.createReferral(referral).enqueue(new Callback<Referral>() {
++                    @Override
++                    public void onResponse(Call<Referral> call, Response<Referral> response) {
++                        Referral res = response.body();
++                        System.out.println();
++                    }
++
++                    @Override
++                    public void onFailure(Call<Referral> call, Throwable t) {
++
++                    }
++                });
++            }
++
++            @Override
++            public void onFailure(Call<Referral> call, Throwable t) {
++
++            }
++        });
++    }
+ 
+ }
+\ No newline at end of file
