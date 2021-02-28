@@ -37,6 +37,13 @@
             android:layout_height="wrap_content"
             android:onClick="onClick_DisplayRecords"
             android:text="Display" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick_Search"
+            android:text="Search"  />
     </LinearLayout>
 
     <EditText

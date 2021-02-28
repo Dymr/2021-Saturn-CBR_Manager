@@ -30,4 +30,8 @@ public class DemoActivity extends AppCompatActivity {
     public void onClick_DisplayRecords(View v){
         displayText("Clicked display record!");
     }
+
+    public void onClick_Search(View v){
+        displayText("Clicked search record!");
+    }
 }
