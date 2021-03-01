@@ -2,6 +2,7 @@ package com.example.cbr_manager;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
@@ -329,6 +330,7 @@ public class ClientDB {
     private String conclusionSocialProvision;
 
     //Initializing fields that are needed for POST request in itr1
+    @Ignore
     public ClientDB() {
         this.consent = "";
         this.date = "";
@@ -347,6 +349,8 @@ public class ClientDB {
         this.socialRisk = 0;
         this.educationRisk = 0;
     }
+
+    @Ignore
     public ClientDB(String consent, String date, String firstName, String lastName, int contactClient, int age,
                   String gender, int id, String location, int villageNo, String disability,
                   String carePresent, int contactCare) {
@@ -363,6 +367,11 @@ public class ClientDB {
         this.disability = disability;
         this.carePresent = carePresent;
         this.contactCare = contactCare;
+    }
+
+    public ClientDB(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Integer getId() {
