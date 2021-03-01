@@ -1,19 +1,17 @@
 package com.example.cbr_manager;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Context;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.ListIterator;
 
 public class DemoActivity extends AppCompatActivity {
 
-    RoomDB db;
-    ClientDBDao clientDao;
+    RoomDB mDB;
+    private List<ClientDB> returnList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +30,16 @@ public class DemoActivity extends AppCompatActivity {
     // open the database to operate (possible operations is recorded in Dao interface)
     // RoomDB can have multiple tables, with each table representing one class object, defined in database entities
     private void openDB() {
-        db = RoomDB.getDatabase(getApplicationContext());
-        clientDao = db.clientDao();
+        mDB = RoomDB.getDatabase(getApplicationContext());
     }
 
     // close the database to prevent data leaks
     private void closeDB(){
-        if(db != null){
-            if(db.isOpen()){
-                db.close();
+        if(mDB != null){
+            if(mDB.isOpen()){
+                mDB.close();
             }
-            db = null;
+            mDB = null;
         }
     }
 
@@ -55,24 +52,56 @@ public class DemoActivity extends AppCompatActivity {
     public void onClick_AddRecord(View v){
         displayText("Clicked add record!");
         ClientDB client = new ClientDB("Waldo", "Tester");
-        clientDao.insert(client);
+        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDB.clientDao().insert(client);
+            }
+        });
     }
 
     public void onClick_ClearAll(View v){
         displayText("Clicked clear all!");
-        clientDao.clearAll();
+        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDB.clientDao().clearAll();
+            }
+        });
     }
 
     public void onClick_DisplayRecords(View v){
         displayText("Clicked display record!");
-        displayRecords(clientDao.getName());
+        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                returnList = mDB.clientDao().getName();
+                DBExecutor.getInstance().getUIThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        displayRecords(returnList);
+                    }
+                });
+            }
+        });
 
     }
 
     public void onClick_Search(View v){
         displayText("Clicked search record!");
         int[] searchID = new int[] {4,5,6};
-        displayRecords(clientDao.getByIds(searchID));
+        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                returnList = mDB.clientDao().getByIds(searchID);
+                DBExecutor.getInstance().getUIThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        displayRecords(returnList);
+                    }
+                });
+            }
+        });
     }
 
     private void displayRecords(List<ClientDB> list){

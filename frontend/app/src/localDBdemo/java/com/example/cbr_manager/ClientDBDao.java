@@ -28,8 +28,7 @@ public interface ClientDBDao {
     List<ClientDB> getByIds(int[] clientId);
 
     // Cannot be used to test display because there is too many fields
-    @Query("SELECT * FROM client ORDER BY id DESC")
+    @Query("SELECT * FROM client")
     LiveData<List<ClientDB>> getAll();
-
 
 }
