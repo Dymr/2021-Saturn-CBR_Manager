@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DemoActivity extends AppCompatActivity {
 
     RoomDB mDB;
     private List<ClientDB> returnList;
+    ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class DemoActivity extends AppCompatActivity {
     public void onClick_AddRecord(View v){
         displayText("Clicked add record!");
         ClientDB client = new ClientDB("Waldo", "Tester");
-        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 mDB.clientDao().insert(client);
