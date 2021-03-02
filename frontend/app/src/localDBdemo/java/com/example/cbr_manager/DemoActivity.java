@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DemoActivity extends AppCompatActivity {
 
     RoomDB mDB;
     private List<ClientDB> returnList;
+    ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,7 @@ public class DemoActivity extends AppCompatActivity {
     public void onClick_AddRecord(View v){
         displayText("Clicked add record!");
         ClientDB client = new ClientDB("Waldo", "Tester");
-        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 mDB.clientDao().insert(client);
@@ -62,7 +66,7 @@ public class DemoActivity extends AppCompatActivity {
 
     public void onClick_ClearAll(View v){
         displayText("Clicked clear all!");
-        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 mDB.clientDao().clearAll();
@@ -73,12 +77,11 @@ public class DemoActivity extends AppCompatActivity {
     public void onClick_DisplayRecords(View v){
         displayText("Clicked display record!");
 
-        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 returnList = mDB.clientDao().getName();
-
-                DBExecutor.getInstance().getUIThread().execute(new Runnable() {
+                DemoActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         displayRecords(returnList);
@@ -86,17 +89,16 @@ public class DemoActivity extends AppCompatActivity {
                 });
             }
         });
-
     }
 
     public void onClick_Search(View v){
         displayText("Clicked search record!");
         int[] searchID = new int[] {4,5,6};
-        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 returnList = mDB.clientDao().getByIds(searchID);
-                DBExecutor.getInstance().getUIThread().execute(new Runnable() {
+                DemoActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         displayRecords(returnList);
@@ -104,6 +106,7 @@ public class DemoActivity extends AppCompatActivity {
                 });
             }
         });
+
     }
 
     private void displayRecords(List<ClientDB> list){
