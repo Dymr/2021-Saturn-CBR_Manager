@@ -72,10 +72,12 @@ public class DemoActivity extends AppCompatActivity {
 
     public void onClick_DisplayRecords(View v){
         displayText("Clicked display record!");
+
         DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
                 returnList = mDB.clientDao().getName();
+
                 DBExecutor.getInstance().getUIThread().execute(new Runnable() {
                     @Override
                     public void run() {
