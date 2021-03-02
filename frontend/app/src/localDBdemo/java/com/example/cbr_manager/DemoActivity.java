@@ -1,10 +1,11 @@
 package com.example.cbr_manager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,8 +13,8 @@ import java.util.concurrent.Executors;
 public class DemoActivity extends AppCompatActivity {
 
     RoomDB mDB;
-    private List<ClientDB> returnList;
     ExecutorService executor = Executors.newSingleThreadExecutor();
+    private List<ClientDB> returnList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +37,9 @@ public class DemoActivity extends AppCompatActivity {
     }
 
     // close the database to prevent data leaks
-    private void closeDB(){
-        if(mDB != null){
-            if(mDB.isOpen()){
+    private void closeDB() {
+        if (mDB != null) {
+            if (mDB.isOpen()) {
                 mDB.close();
             }
             mDB = null;
@@ -51,9 +52,9 @@ public class DemoActivity extends AppCompatActivity {
         textView.setText(message);
     }
 
-    public void onClick_AddRecord(View v){
+    public void onClick_AddRecord(View v) {
         displayText("Clicked add record!");
-        ClientDB client = new ClientDB("Waldo", "Tester");
+        ClientDB client = new ClientDB("Waldo", "Asdas");
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -62,7 +63,7 @@ public class DemoActivity extends AppCompatActivity {
         });
     }
 
-    public void onClick_ClearAll(View v){
+    public void onClick_ClearAll(View v) {
         displayText("Clicked clear all!");
         DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
             @Override
@@ -72,13 +73,13 @@ public class DemoActivity extends AppCompatActivity {
         });
     }
 
-    public void onClick_DisplayRecords(View v){
+    public void onClick_DisplayRecords(View v) {
         displayText("Clicked display record!");
-        DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 returnList = mDB.clientDao().getName();
-                DBExecutor.getInstance().getUIThread().execute(new Runnable() {
+                DemoActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         displayRecords(returnList);
@@ -86,12 +87,11 @@ public class DemoActivity extends AppCompatActivity {
                 });
             }
         });
-
     }
 
-    public void onClick_Search(View v){
+    public void onClick_Search(View v) {
         displayText("Clicked search record!");
-        int[] searchID = new int[] {4,5,6};
+        int[] searchID = new int[]{4, 5, 6};
         DBExecutor.getInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -106,9 +106,9 @@ public class DemoActivity extends AppCompatActivity {
         });
     }
 
-    private void displayRecords(List<ClientDB> list){
+    private void displayRecords(List<ClientDB> list) {
         String display = "";
-        for(int i=0; i<list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             display = display + list.get(i).getId() + ", " + list.get(i).getFullName() + "\n";
         }
         displayText(display);
