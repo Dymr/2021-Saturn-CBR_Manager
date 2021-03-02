@@ -31,4 +31,7 @@ public interface ClientDBDao {
     @Query("SELECT * FROM client")
     LiveData<List<ClientDB>> getAll();
 
+    @Query("SELECT first_name FROM client WHERE :cid LIKE id")
+    String searchByName(int cid);
+
 }
