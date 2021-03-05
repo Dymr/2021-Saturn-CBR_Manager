@@ -1,12 +1,15 @@
 package com.example.cbr_manager.service.client;
 
 import com.example.cbr_manager.BuildConfig;
+import com.example.cbr_manager.service.CBRCall;
+import com.example.cbr_manager.service.CBRCallback;
 import com.example.cbr_manager.service.auth.AuthResponse;
 import com.example.cbr_manager.utils.Helper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -14,10 +17,12 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ClientService {
+public class ClientService implements ClientServiceInterface {
 
     private static final String BASE_URL = BuildConfig.API_URL;
 
@@ -103,4 +108,25 @@ public class ClientService {
         return this.clientAPI.uploadPhoto(authHeader, clientId, body);
     }
 
+    @Override
+    public void testGetClientMethod(int clientId, CBRCallback<Client> clientCBRCall) {
+        this.clientAPI.getClient(authHeader, 1).enqueue(new Callback<Client>() {
+            @Override
+            public void onResponse(Call<Client> call, Response<Client> response) {
+                if(response.isSuccessful()){
+                    clientCBRCall.onResponse(response.body());
+                }
+                try {
+                    clientCBRCall.onFailure(new Throwable(response.errorBody().string()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Client> call, Throwable t) {
+                clientCBRCall.onFailure(t);
+            }
+        });
+    }
 }

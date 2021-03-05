@@ -18,12 +18,18 @@ import androidx.navigation.Navigation;
 
 import com.example.cbr_manager.NavigationActivity;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.service.APIService;
+import com.example.cbr_manager.service.CBRCallback;
 import com.example.cbr_manager.service.client.Client;
 import com.example.cbr_manager.ui.clientlist.ClientListFragment;
 import com.example.cbr_manager.ui.clientlist.ClientListRecyclerItemAdapter;
 import com.example.cbr_manager.ui.create_client.CreateClientActivity;
 import com.example.cbr_manager.ui.createvisit.CreateVisitActivity;
 import com.example.cbr_manager.ui.login.LoginActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomepageActivity extends AppCompatActivity {
     private ImageButton newClientButton, newVisitButton, dashboardButton;
@@ -34,6 +40,34 @@ public class HomepageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("Home Page");
         setContentView(R.layout.homepage);
+
+        APIService api = APIService.getInstance();
+
+        api.clientService.testGetClientMethod(2, new CBRCallback<Client>() {
+            @Override
+            public void onResponse(Client response) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+
+        api.clientService.modifyClient(client).enqueue(new Callback<Client>() {
+            @Override
+            public void onResponse(Call<Client> call, Response<Client> response) {
+                if(response.isSuccessful()){
+                    Client modifiedClient = response.body()
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Client> call, Throwable t) {
+
+            }
+        });
 
         newClientButton = findViewById(R.id.newClientButton);
         newClientButton.setOnClickListener(new View.OnClickListener() {
