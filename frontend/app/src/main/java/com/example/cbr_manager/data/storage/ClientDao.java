@@ -16,12 +16,14 @@ public interface ClientDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Client...clients);
 
+    // This function delete every client where the @PrimaryKey matches, in this case it is id
+    // Thus it is very important that @PrimaryKey field must be unique
     @Delete
-    void delete(Client client);
+    int delete(Client client);
 
     // This function update every client where the @PrimaryKey matches, in this case it is id
     @Update
-    void update(Client client);
+    int update(Client client);
 
     // Read all clients in client table
     @Query("SELECT * FROM client")
