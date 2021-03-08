@@ -66,6 +66,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <provider
+            android:authorities="com.example.cbr_manager"
+            android:name=".data.storage.ClientProvider"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
