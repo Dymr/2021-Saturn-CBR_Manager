@@ -1,6 +1,7 @@
 package com.example.cbr_manager.service.client;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.util.Log;
 
 import androidx.room.Entity;
@@ -911,5 +912,24 @@ public class Client {
         this.conclusionSocialProvision = conclusionSocialProvision;
     }
 
+
+    public Client fromCursor(Cursor cursor){
+        Client client = new Client();
+        client.setId(cursor.getInt(cursor.getColumnIndex("id")));
+        client.setFirstName(cursor.getString(cursor.getColumnIndex("firstName")));
+        client.setLastName(cursor.getString(cursor.getColumnIndex("lastName")));
+        client.setConsent(cursor.getString(cursor.getColumnIndex("consent")));
+        client.setDate(cursor.getString(cursor.getColumnIndex("date")));
+        client.setContactClient(cursor.getInt(cursor.getColumnIndex("contactClient")));
+        client.setAge(cursor.getInt(cursor.getColumnIndex("age")));
+        client.setGender(cursor.getString(cursor.getColumnIndex("gender")));
+        client.setLocation(cursor.getString(cursor.getColumnIndex("location")));
+        client.setVillageNo(cursor.getInt(cursor.getColumnIndex("villageNo")));
+        client.setDisability(cursor.getString(cursor.getColumnIndex("disability")));
+        client.setCarePresent(cursor.getString(cursor.getColumnIndex("carePresent")));
+        client.setContactCare(cursor.getInt(cursor.getColumnIndex("contactCare")));
+
+        return client;
+    }
 
 }
