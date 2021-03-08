@@ -69,8 +69,11 @@ public class ClientSyncAdapter extends AbstractThreadedSyncAdapter{
 
             // TODO: Update local Clients
 
-            // TODO: Update remote Clients NOTE: IN PROGRESS
-
+            // TODO: Update remote Clients ::In testing
+            for(int i=0; i<clientLocal.size(); i++){
+                Client newClient = clientLocal.get(i);
+                apiService.clientService.createClient(newClient);
+            }
 
 
         } catch (Exception e){
@@ -97,7 +100,10 @@ public class ClientSyncAdapter extends AbstractThreadedSyncAdapter{
                 }
             });
         }
+
     }
+
+
 
 
 
@@ -109,11 +115,11 @@ public class ClientSyncAdapter extends AbstractThreadedSyncAdapter{
     private ContentResolver contentResolver;
     contentResolver = getContext().getContentResolver();
 
-    insert
+    @insert:
     ContentValues clientContent = ClientValues.setClient(client);
     Uri insertUri = contentResolver.insert(ClientContract.CLIENT_URI, clientContent);
 
-    query
+    @query:
     Cursor clientCursor = contentResolver.query(ClientContract.CLIENT_URI, null, null, null, null);
     List<Client> clientLocal = new ArrayList<>();
     if(clientCursor != null){
@@ -125,11 +131,16 @@ public class ClientSyncAdapter extends AbstractThreadedSyncAdapter{
         clientCursor.close();
     }
 
-    update with uri from insert
+    @update with uri from insert:
     ContentValues newClientContent = ClientValues.setClient(new_client);
     int count_updated = contentResolver.update(insertUri, newClientContent, null, null);
 
-    delete with uri from insert
+    @delete with uri from insert:
     int count_deleted = contentResolver.delete(insertUri,null, null);
 
+    @Running Sync on button click:
+    Bundle settingBundle = new Bundle();
+    settingBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+    settingBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+    ContentResolver.requestSync(mAccount, ClientContract.CONTENT_AUTHORITY, settingBundle);
  */
