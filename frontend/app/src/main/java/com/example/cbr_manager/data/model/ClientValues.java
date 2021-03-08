@@ -22,9 +22,9 @@ public class ClientValues{
     public static final String CLIENT_CONTACT_CARE = "CLIENT_CONTACT_CARE";
 
 
-    private ContentValues clientValues = new ContentValues();
+    private static ContentValues clientValues = new ContentValues();
 
-    public ContentValues setClient(Client client){
+    public static ContentValues setClient(Client client){
         clientValues.put(CLIENT_ID, client.getId());
         clientValues.put(CLIENT_FNAME, client.getFirstName());
         clientValues.put(CLIENT_LNAME, client.getLastName());

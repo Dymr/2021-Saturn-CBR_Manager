@@ -4,12 +4,15 @@ import android.accounts.Account;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SyncResult;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.cbr_manager.data.model.ClientValues;
 import com.example.cbr_manager.service.APIService;
 import com.example.cbr_manager.service.auth.AuthService;
 import com.example.cbr_manager.service.client.Client;
@@ -66,7 +69,8 @@ public class ClientSyncAdapter extends AbstractThreadedSyncAdapter{
 
             // TODO: Update local Clients
 
-            // TODO: Update remote Clients
+            // TODO: Update remote Clients NOTE: IN PROGRESS
+
 
 
         } catch (Exception e){
@@ -94,4 +98,38 @@ public class ClientSyncAdapter extends AbstractThreadedSyncAdapter{
             });
         }
     }
+
+
+
 }
+
+
+/* Basic Content Resolver to work with provider and syncadapter, we need to put these code in for activity that accesses the client database
+
+    private ContentResolver contentResolver;
+    contentResolver = getContext().getContentResolver();
+
+    insert
+    ContentValues clientContent = ClientValues.setClient(client);
+    Uri insertUri = contentResolver.insert(ClientContract.CLIENT_URI, clientContent);
+
+    query
+    Cursor clientCursor = contentResolver.query(ClientContract.CLIENT_URI, null, null, null, null);
+    List<Client> clientLocal = new ArrayList<>();
+    if(clientCursor != null){
+        clientCursor.moveToFirst();
+        Client client = new Client();
+        while(clientCursor.moveToNext()){
+            clientLocal.add(client.fromCursor(clientCursor));
+        }
+        clientCursor.close();
+    }
+
+    update with uri from insert
+    ContentValues newClientContent = ClientValues.setClient(new_client);
+    int count_updated = contentResolver.update(insertUri, newClientContent, null, null);
+
+    delete with uri from insert
+    int count_deleted = contentResolver.delete(insertUri,null, null);
+
+ */
