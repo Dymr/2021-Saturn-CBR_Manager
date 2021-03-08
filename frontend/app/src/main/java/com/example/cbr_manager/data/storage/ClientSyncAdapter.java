@@ -13,7 +13,6 @@ import android.util.Log;
 import com.example.cbr_manager.service.APIService;
 import com.example.cbr_manager.service.auth.AuthService;
 import com.example.cbr_manager.service.client.Client;
-import com.example.cbr_manager.ui.clientlist.ClientListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
