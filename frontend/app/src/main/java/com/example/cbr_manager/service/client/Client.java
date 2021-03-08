@@ -1,5 +1,6 @@
 package com.example.cbr_manager.service.client;
 
+import android.content.ContentValues;
 import android.util.Log;
 
 import androidx.room.Entity;
@@ -909,4 +910,6 @@ public class Client {
     public void setConclusionSocialProvision(String conclusionSocialProvision) {
         this.conclusionSocialProvision = conclusionSocialProvision;
     }
+
+
 }
