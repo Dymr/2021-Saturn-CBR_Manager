@@ -6,17 +6,20 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class DemoActivity extends AppCompatActivity {
 
     RoomDB mDB;
     ExecutorService executor = Executors.newSingleThreadExecutor();
     private List<ClientDB> returnList;
-    ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,21 +78,16 @@ public class DemoActivity extends AppCompatActivity {
         });
     }
 
-    public void onClick_DisplayRecords(View v) {
+    public void onClick_DisplayRecords(View v) throws ExecutionException, InterruptedException {
         displayText("Clicked display record!");
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                returnList = mDB.clientDao().getName();
-                DemoActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        displayRecords(returnList);
-                    }
-                });
-            }
-        });
+        Callable<List<ClientDB>> callable = () -> {
+            List<ClientDB> clients;
+            clients = mDB.clientDao().getName();
+            return clients;
+        };
+        Future<List<ClientDB>> future = executor.submit(callable);
+        displayRecords(future.get());
     }
 
     public void onClick_Search(View v) {
