@@ -1,4 +1,4 @@
-package com.example.cbr_manager.data.model;
+package com.example.cbr_manager.data.storage;
 
 import android.net.Uri;
 

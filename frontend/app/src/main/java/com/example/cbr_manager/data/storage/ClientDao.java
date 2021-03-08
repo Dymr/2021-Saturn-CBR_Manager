@@ -1,5 +1,7 @@
 package com.example.cbr_manager.data.storage;
 
+import android.database.Cursor;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,23 +16,24 @@ import java.util.List;
 @Dao
 public interface ClientDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Client...clients);
+    long insert(Client client);
 
-    // This function delete every client where the @PrimaryKey matches, in this case it is id
-    // Thus it is very important that @PrimaryKey field must be unique
-    @Delete
-    int delete(Client client);
+    // This function delete every client where the id matches
+    // Return numbers of client deleted
+    @Query("DELETE FROM client WHERE id = :id")
+    int delete(long id);
 
     // This function update every client where the @PrimaryKey matches, in this case it is id
+    // Likewise with @Delete, also return the number of clients updated
     @Update
     int update(Client client);
 
-    // Read all clients in client table
+    // Read all clients in client table, return a cursor to client table object inside database
     @Query("SELECT * FROM client")
-    List<Client> getClients();
+    Cursor getClients();
 
     // Read client by id
-    @Query("SELECT * FROM client WHERE id LIKE :clientId")
+    @Query("SELECT * FROM client WHERE id = :clientId")
     Client getClient(int clientId);
 
 }
