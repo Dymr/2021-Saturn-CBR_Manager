@@ -1,6 +1,7 @@
 package com.example.cbr_manager.data.model;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 
 import com.example.cbr_manager.service.client.Client;
 
@@ -90,6 +91,7 @@ public class ClientValues{
 
         return client;
     }
+
 
 
 }
