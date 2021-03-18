@@ -12,8 +12,8 @@ import com.example.cbr_manager.service.client.Client;
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Dao
 public interface ClientDao {
