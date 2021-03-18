@@ -1,8 +1,8 @@
 package com.example.cbr_manager.repository;
 
 import com.example.cbr_manager.service.client.Client;
-import com.example.cbr_manager.service.client.ClientAPI;
 import com.example.cbr_manager.service.client.ClientDao;
+import com.example.cbr_manager.service.client.api.ClientAPI;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 
 public class ClientRepository {
 
@@ -28,7 +29,11 @@ public class ClientRepository {
 
 
     public Observable<List<Client>> getClients() {
-        return null;
+        return clientAPI.getClients(authHeader)
+                .subscribeOn(Schedulers.io())
+                .doOnNext(clients -> {
+                    System.out.println(clients);
+                });
     }
 
     public Single<Client> getClient(int clientID) {
