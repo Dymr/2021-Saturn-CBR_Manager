@@ -11,25 +11,29 @@ import com.example.cbr_manager.service.client.Client;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+
 @Dao
 public interface ClientDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Client client);
+    Completable insert(Client client);
 
     @Delete
-    void delete(Client client);
+    Completable delete(Client client);
 
     // This function update every client where the @PrimaryKey matches, in this case it is id
     @Update
-    void update(Client client);
+    Completable update(Client client);
 
     // Read all clients in client table
     @Query("SELECT * FROM client")
-    List<Client> getClients();
+    Observable<List<Client>> getClients();
 
     // Read client by id
     @Query("SELECT * FROM client WHERE client_id = :clientId")
-    Client getClient(int clientId);
+    Single<Client> getClient(int clientId);
 
     // Test function for clearing local database
     @Query("DELETE FROM client")

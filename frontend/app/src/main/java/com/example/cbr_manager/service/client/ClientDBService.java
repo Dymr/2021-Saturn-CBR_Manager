@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+@Deprecated
 public class ClientDBService {
     private ClientDao clientDao;
     private static ClientDBService Instance;
@@ -63,8 +64,9 @@ public class ClientDBService {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Callable<List<Client>> callable = () -> {
             List<Client> clients;
-            clients = clientDao.getClients();
-            return clients;
+//            clients = clientDao.getClients();
+//            return clients;
+            return null;
         };
         Future<List<Client>> future = executor.submit(callable);
 
@@ -76,7 +78,7 @@ public class ClientDBService {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         final Client[] client = {new Client()};
         Callable<Client> callable = () ->{
-            client[0] = clientDao.getClient(id);
+//            client[0] = clientDao.getClient(id);
             return client[0];
         };
         Future<Client> future = executor.submit(callable);
