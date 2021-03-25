@@ -72,7 +72,11 @@ public interface ClientAPI {
                                     @Part("disability") RequestBody disability,
                                     @Part("health_risk") RequestBody healthRisk,
                                     @Part("social_risk") RequestBody socialRisk,
-                                    @Part("education_risk") RequestBody educationRisk);
+                                    @Part("education_risk") RequestBody educationRisk,
+                                    @Part("education_goal") RequestBody educationGoal,
+                                    @Part("social_goal") RequestBody socialGoal,
+                                    @Part("health_goal") RequestBody healthGoal
+    );
 
     @GET("api/clients/{id}/history/")
     Call<List<ClientHistoryRecord>> getClientHistoryRecords(@Header("Authorization") String authHeader, @Path("id") int id);

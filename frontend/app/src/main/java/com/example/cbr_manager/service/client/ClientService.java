@@ -52,6 +52,10 @@ public class ClientService extends BaseService {
         RequestBody healthRisk = RequestBody.create(client.getHealthRisk().toString(), MediaType.parse("text/plain"));
         RequestBody socialRisk = RequestBody.create(client.getSocialRisk().toString(), MediaType.parse("text/plain"));
         RequestBody educationRisk = RequestBody.create(client.getEducationRisk().toString(), MediaType.parse("text/plain"));
+        RequestBody educationGoal = RequestBody.create(client.getEducationGoal().toString(), MediaType.parse("text/plain"));
+        RequestBody socialGoal = RequestBody.create(client.getSocialGoal().toString(), MediaType.parse("text/plain"));
+        RequestBody healthGoal = RequestBody.create(client.getHealthGoal().toString(), MediaType.parse("text/plain"));
+
 
         return this.clientAPI.createClientManual(
                 authHeader,
@@ -68,7 +72,10 @@ public class ClientService extends BaseService {
                 disability,
                 healthRisk,
                 socialRisk,
-                educationRisk
+                educationRisk,
+                educationGoal,
+                socialGoal,
+                healthGoal
         );
     }
 

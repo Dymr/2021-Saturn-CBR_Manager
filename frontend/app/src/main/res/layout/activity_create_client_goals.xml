@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextFirstName"
+            android:id="@+id/editTextEducationGoal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -53,10 +53,10 @@
             android:text="@string/social_goal"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextEducationGoal" />
 
         <EditText
-            android:id="@+id/editTextLastName"
+            android:id="@+id/editTextSocialGoal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -82,10 +82,10 @@
             android:text="@string/health_goal"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextSocialGoal" />
 
         <EditText
-            android:id="@+id/editTextAge"
+            android:id="@+id/editTextHealthGoal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -93,7 +93,6 @@
             android:ems="10"
             android:hint="Health Goal"
             android:importantForAutofill="no"
-            android:inputType="number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
