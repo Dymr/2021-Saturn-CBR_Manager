@@ -22,9 +22,12 @@
     <string name="age">9. Age<font color='#FF0000'>*</font></string>
     <string name="contact_number">10. Contact Number(insert N/A if not available)<font color='#FF0000'>*</font></string>
     <string name="type_of_disability">11. Type of disability</string>
-    <string name="caregiver_present">12. Caregiver present for interview<font color='#FF0000'>*</font></string>
-    <string name="caregiver_contact_number">13. If yes, caregiver contact number(insert N/A if not available)<font color='#FF0000'>*</font></string>
-    <string name="photo_of_client">14. Photo of client + caregiver if present</string>
+    <string name="education_goal">12. Education Goal(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="social_goal">13. Social Goal(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="health_goal">14. Health Goal(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="caregiver_present">15. Caregiver present for interview<font color='#FF0000'>*</font></string>
+    <string name="caregiver_contact_number">16. If yes, caregiver contact number(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="photo_of_client">17. Photo of client + caregiver if present</string>
     <string name="Year">Year</string>
     <string name="Month">Month</string>
     <string name="Day">Day</string>
