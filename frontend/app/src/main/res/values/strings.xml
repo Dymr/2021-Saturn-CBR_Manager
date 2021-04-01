@@ -11,23 +11,20 @@
     <string name="client_information">Client Information</string>
     <string name="visits">Visits</string>
     <string name="cbr_logo">CBR Logo</string>
-    <string name="consent">1. Do you consent to this interview?<font color='#FF0000'>*</font></string>
-    <string name="date_form_complete">2. Date form completed</string>
-    <string name="what_is_your_id">3. What is your ID Number?</string>
-    <string name="client_creation_location">4. Location</string>
-    <string name="what_is_your_village_number">5. What is your village number?<font color='#FF0000'>*</font></string>
-    <string name="first_name">6. First Name<font color='#FF0000'>*</font></string>
-    <string name="last_name">7. Last Name<font color='#FF0000'>*</font></string>
-    <string name="gender">8. Gender<font color='#FF0000'>*</font></string>
-    <string name="age">9. Age<font color='#FF0000'>*</font></string>
-    <string name="contact_number">10. Contact Number(insert N/A if not available)<font color='#FF0000'>*</font></string>
-    <string name="type_of_disability">11. Type of disability</string>
-    <string name="education_goal">12. Education Goal(insert N/A if not available)<font color='#FF0000'>*</font></string>
-    <string name="social_goal">13. Social Goal(insert N/A if not available)<font color='#FF0000'>*</font></string>
-    <string name="health_goal">14. Health Goal(insert N/A if not available)<font color='#FF0000'>*</font></string>
-    <string name="caregiver_present">15. Caregiver present for interview<font color='#FF0000'>*</font></string>
-    <string name="caregiver_contact_number">16. If yes, caregiver contact number(insert N/A if not available)<font color='#FF0000'>*</font></string>
-    <string name="photo_of_client">17. Photo of client + caregiver if present</string>
+    <string name="consent">Do you consent to this interview?<font color='#FF0000'>*</font></string>
+    <string name="date_form_complete">Date form completed</string>
+    <string name="what_is_your_id">What is your ID Number?</string>
+    <string name="client_creation_location">Location</string>
+    <string name="what_is_your_village_number">What is your village number?<font color='#FF0000'>*</font></string>
+    <string name="first_name">First Name<font color='#FF0000'>*</font></string>
+    <string name="last_name">Last Name<font color='#FF0000'>*</font></string>
+    <string name="gender">Gender<font color='#FF0000'>*</font></string>
+    <string name="age">Age<font color='#FF0000'>*</font></string>
+    <string name="contact_number">Contact Number(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="type_of_disability">Type of disability</string>
+    <string name="caregiver_present">Caregiver present for interview<font color='#FF0000'>*</font></string>
+    <string name="caregiver_contact_number">If yes, caregiver contact number(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="photo_of_client">Photo of client + caregiver if present</string>
     <string name="Year">Year</string>
     <string name="Month">Month</string>
     <string name="Day">Day</string>
@@ -232,6 +229,15 @@
     <string name="is_injury_below_or_above_elbow">Is injury below or above elbow?<font color='#FF0000'>*</font></string>
     <string name="refer_to">Refer To<font color='#FF0000'>*</font></string>
     <string name="_4_what_is_your_location">4. What is your location?<font color='#FF0000'>*</font></string>
+    <string name="please_rate_how_you_consider_the_client_s_education_status_to_be">Please rate how you consider the client\'s education status to be:<font color='#FF0000'>*</font></string>
+    <string name="please_describe_what_they_require">Please describe what they require:<font color='#FF0000'>*</font></string>
+    <string name="please_rate_how_you_consider_the_client_s_social_status_to_be">Please rate how you consider the client\'s social status to be:<font color='#FF0000'>*</font></string>
+    <string name="please_rate_how_you_consider_the_client_s_health_to_be">Please rate how you consider the client\'s health to be:<font color='#FF0000'>*</font></string>
+    <string name="personal_information">Personal Information</string>
+    <string name="user_id">User ID</string>
+    <string name="email">Email</string>
+    <string name="user_full_name">User full name</string>
+    <string name="logout">Logout</string>
 
     <string-array name="general_health">
         <item>N/A</item>
