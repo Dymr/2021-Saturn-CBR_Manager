@@ -1,0 +1,286 @@
+
+
+<resources>
+    <string name="app_name">Saturn CBR Manager</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    <string name="previous">Previous</string>
+
+    <string name="client_information">Client Information</string>
+    <string name="visits">Visits</string>
+    <string name="cbr_logo">CBR Logo</string>
+    <string name="consent">1. Do you consent to this interview?<font color='#FF0000'>*</font></string>
+    <string name="date_form_complete">2. Date form completed</string>
+    <string name="what_is_your_id">3. What is your ID Number?</string>
+    <string name="client_creation_location">4. Location</string>
+    <string name="what_is_your_village_number">5. What is your village number?<font color='#FF0000'>*</font></string>
+    <string name="first_name">6. First Name<font color='#FF0000'>*</font></string>
+    <string name="last_name">7. Last Name<font color='#FF0000'>*</font></string>
+    <string name="gender">8. Gender<font color='#FF0000'>*</font></string>
+    <string name="age">9. Age<font color='#FF0000'>*</font></string>
+    <string name="contact_number">10. Contact Number(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="type_of_disability">11. Type of disability</string>
+    <string name="education_goal">12. Education Goal(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="social_goal">13. Social Goal(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="health_goal">14. Health Goal(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="caregiver_present">15. Caregiver present for interview<font color='#FF0000'>*</font></string>
+    <string name="caregiver_contact_number">16. If yes, caregiver contact number(insert N/A if not available)<font color='#FF0000'>*</font></string>
+    <string name="photo_of_client">17. Photo of client + caregiver if present</string>
+    <string name="Year">Year</string>
+    <string name="Month">Month</string>
+    <string name="Day">Day</string>
+
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="amputee">Amputee</string>
+    <string name="polio">Polio</string>
+    <string name="spinal_cord_injury">Spinal Cord Injury</string>
+    <string name="cerebral_palsy">Cerebral Palsy</string>
+    <string name="spina_bifida">Spina Bifida</string>
+    <string name="hydrocephalus">Hydrocephalus</string>
+    <string name="visual_impairment">Visual Impairment</string>
+    <string name="hearing_impairment">Hearing Impairment</string>
+    <string name="dont_know">Don\'t Know</string>
+    <string name="other">Other</string>
+    <string name="take_photo">Take Photo</string>
+
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="all_clients">All Clients</string>
+    <string name="add_client">Add Client</string>
+    <string name="outstanding_visits">Outstanding Visits</string>
+    <string name="outstanding_referrals">Outstanding Referrals</string>
+    <string name="firstname_lastname">FirstName LastName</string>
+    <string name="location">Simon Fraser University</string>
+    <string name="title_activity_login">Sign In</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua... </string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="health_provisions">Health Provisions</string>
+    <string name="what_was_provided">What was provided?</string>
+    <string name="purpose_for_visit">Purpose for visit</string>
+    <string name="cbr">CBR</string>
+    <string name="disability_centre_referral">Disability centre referral</string>
+    <string name="disability_centre_referral_follow_up">Disability centre referral follow up</string>
+    <string name="cbr_type">CBR Type</string>
+    <string name="health">Health</string>
+    <string name="education">Education</string>
+    <string name="social">Social</string>
+    <string name="date_of_visit">Date of visit</string>
+    <string name="name_of_client">Name of client</string>
+    <string name="client_name">Client Name</string>
+    <string name="name_of_cbr_worker">Name of CBR Worker</string>
+    <string name="create_visit">Create Visit</string>
+    <string name="cbr_worker_name">CBR Worker Name</string>
+    <string-array name="locationsArray">
+        <item>BidiBidi Zone 1</item>
+        <item>BidiBidi Zone 2</item>
+        <item>BidiBidi Zone 3</item>
+        <item>BidiBidi Zone 4</item>
+        <item>BidiBidi Zone 5</item>
+        <item>Palorinya Basecamp</item>
+        <item>Palorinya Zone 1</item>
+        <item>Palorinya Zone 2</item>
+        <item>Palorinya Zone 3</item>
+    </string-array>
+
+    <string-array name="physioNeedsArray">
+        <item>Amputee</item>
+        <item>Polio</item>
+        <item>Spinal Cord Injury</item>
+        <item>Cerebral Palsy</item>
+        <item>Spina Bifida</item>
+        <item>Hydrocephalus</item>
+        <item>Visual Impairment</item>
+        <item>Hearing Impairment</item>
+        <item>Other</item>
+    </string-array>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="toolbar">toolbar</string>
+    <string name="new_client">NEW CLIENT</string>
+    <string name="new_visit">NEW VISIT</string>
+    <string name="dashboard">DASHBOARD</string>
+    <string name="new_referral">NEW REFERRAL</string>
+    <string name="client_list">CLIENT LIST</string>
+    <string name="sync">SYNC</string>
+    <string name="hint_search">Search</string>
+    <string name="create_referral">Create Referral</string>
+    <string name="cbr_client_id">CBR Client ID:</string>
+    <string name="auth_token_key">AUTH_TOKEN_KEY</string>
+
+
+    <string name="service_required">Service required<font color='#FF0000'>*</font></string>
+    <string name="describe_other">Describe Other<font color='#FF0000'>*</font></string>
+    <string name="usage_experience">Usage Experience<font color='#FF0000'>*</font></string>
+    <string name="hip_width">Hip width<font color='#FF0000'>*</font></string>
+    <string name="existing_wheelchair">Existing Wheelchair?<font color='#FF0000'>*</font></string>
+    <string name="can_the_existing_wheelchair_be_repaired">Can the existing wheelchair be repaired?<font color='#FF0000'>*</font></string>
+    <string name="client_condition">Client condition<font color='#FF0000'>*</font></string>
+    <string name="describe_other_phys">Describe Other<font color='#FF0000'>*</font></string>
+    <string name="is_injury_below_or_above_knee">Is injury below or above knee?<font color='#FF0000'>*</font></string>
+    <string name="is_injury_below_or_above_elbow">Is injury below or above elbow?<font color='#FF0000'>*</font></string>
+    <string name="refer_to">Refer To<font color='#FF0000'>*</font></string>
+    <string name="_4_what_is_your_location">4. What is your location?<font color='#FF0000'>*</font></string>
+
+    <string-array name="general_health">
+        <item>N/A</item>
+        <item>Very Poor</item>
+        <item>Poor</item>
+        <item>Fine</item>
+        <item>Good</item>
+    </string-array>
+
+    <string-array name="assistive_devices">
+        <item>N/A</item>
+        <item>Wheelchair</item>
+        <item>Prosthetic</item>
+        <item>Orthotic</item>
+        <item>Crutch</item>
+        <item>Walking Stick</item>
+        <item>Hearing Aid</item>
+        <item>Glasses</item>
+        <item>Standing Frame</item>
+        <item>Corner</item>
+    </string-array>
+
+    <string-array name="health_satisfaction">
+        <item>N/A</item>
+        <item>Very Unsatisfied</item>
+        <item>Unsatisfied</item>
+        <item>Satisfied</item>
+        <item>Very Satisfied</item>
+    </string-array>
+
+    <string-array name="no_school_reason">
+        <item>N/A</item>
+        <item>Lack of Funding</item>
+        <item>My Disability Stops Me</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="employment">
+        <item>N/A</item>
+        <item>Self Employed</item>
+        <item>Employed</item>
+    </string-array>
+
+    <string-array name="child_nourishment">
+        <item>N/A</item>
+        <item>Malnourished</item>
+        <item>Undernourished</item>
+        <item>Well Nourished</item>
+    </string-array>
+</resources>
