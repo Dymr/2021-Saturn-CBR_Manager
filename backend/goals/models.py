@@ -8,7 +8,7 @@ class Goal(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_completed = models.DateTimeField(blank=True, null=True)
     user_creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    client_id = models.IntegerField()
+    client_id = models.IntegerField(default=0)
 
     client_state_previous = models.JSONField(blank=True, null=True, editable=False)
     client_state_updated = models.JSONField(blank=True, null=True, editable=False)
