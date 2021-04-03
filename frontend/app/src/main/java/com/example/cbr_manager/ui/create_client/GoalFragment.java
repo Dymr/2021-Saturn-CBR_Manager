@@ -32,7 +32,7 @@ public class GoalFragment extends Fragment implements Step {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_create_client_goals, container, false);
+        View view = inflater.inflate(R.layout.activity_create_client_goal, container, false);
 
         /*client = ((CreateClientStepperActivity) getActivity()).formClientObj;
 
