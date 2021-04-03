@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.service.APIService;
 import com.example.cbr_manager.service.client.Client;
+import com.example.cbr_manager.service.goal.Goal;
 import com.example.cbr_manager.ui.clientdetails.ClientDetailsActivity;
 import com.example.cbr_manager.ui.stepper.GenericStepperAdapter;
 import com.google.android.material.snackbar.Snackbar;
@@ -65,6 +66,7 @@ public class CreateClientStepperActivity extends AppCompatActivity implements St
         createClientStepperAdapter.addFragment(new HealthRiskFragment(), "Health Risk");
         createClientStepperAdapter.addFragment(new EducationRiskFragment(), "Education Risk");
         createClientStepperAdapter.addFragment(new SocialRiskFragment(), "Social Risk");
+        createClientStepperAdapter.addFragment(new GoalFragment(), "Goals");
 
         return createClientStepperAdapter;
     }

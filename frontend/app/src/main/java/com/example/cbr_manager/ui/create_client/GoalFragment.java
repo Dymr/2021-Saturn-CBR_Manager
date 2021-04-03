@@ -23,9 +23,9 @@ import static com.example.cbr_manager.ui.create_client.ValidatorHelper.validateS
 public class GoalFragment extends Fragment implements Step {
 
 
-    private EditText editTextEducationGoal, editTextSocialGoal, editTextHealthGoal;
+    /*private EditText editTextEducationGoal, editTextSocialGoal, editTextHealthGoal;
 
-    private Client client;
+    private Client client;*/
 
     private TextView errorTextView;
 
@@ -34,13 +34,13 @@ public class GoalFragment extends Fragment implements Step {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_create_client_goals, container, false);
 
-        client = ((CreateClientStepperActivity) getActivity()).formClientObj;
+        /*client = ((CreateClientStepperActivity) getActivity()).formClientObj;
 
         editTextEducationGoal = setUpEditView(view, R.id.editTextEducationGoal);
 
         editTextSocialGoal = setUpEditView(view, R.id.editTextSocialGoal);
 
-        editTextHealthGoal = setUpEditView(view, R.id.editTextHealthGoal);
+        editTextHealthGoal = setUpEditView(view, R.id.editTextHealthGoal);*/
 
         return view;
     }
@@ -48,6 +48,7 @@ public class GoalFragment extends Fragment implements Step {
     @Nullable
     @Override
     public VerificationError verifyStep() {
+        /*
         try {
             validateStepperTextViewNotNull(editTextEducationGoal, "Required");
             validateStepperTextViewNotNull(editTextSocialGoal, "Required");
@@ -57,7 +58,7 @@ public class GoalFragment extends Fragment implements Step {
             return new VerificationError(e.getMessage());
         }
 
-        updateClient();
+        updateClient();*/
 
         return null;
     }
@@ -78,9 +79,9 @@ public class GoalFragment extends Fragment implements Step {
     }
 
     public void updateClient() {
-        client.setEducationGoal(editTextEducationGoal.getText().toString().trim());
+        /*client.setEducationGoal(editTextEducationGoal.getText().toString().trim());
         client.setSocialGoal(editTextSocialGoal.getText().toString().trim());
-        client.setHealthGoal(editTextHealthGoal.getText().toString().trim());
+        client.setHealthGoal(editTextHealthGoal.getText().toString().trim());*/
     }
 
 }
