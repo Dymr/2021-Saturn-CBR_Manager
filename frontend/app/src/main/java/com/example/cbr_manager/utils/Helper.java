@@ -15,11 +15,13 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.format.FormatStyle;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.security.Timestamp;
+import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 
@@ -84,5 +86,12 @@ public class Helper {
 
     public static Instant getCurrentUTCTime(){
         return Instant.now();
+    }
+
+    public static String formatDateTimeToLocalString(String dateString, FormatStyle formatStyle){
+        Instant instant = Instant.parse(dateString);
+        ZoneId zoneId = ZoneId.systemDefault();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(formatStyle);
+        return instant.atZone(zoneId).format(dateTimeFormatter);
     }
 }

@@ -9,6 +9,9 @@ import android.view.MenuItem;
 
 import com.example.cbr_manager.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ClientSelectorActivity extends AppCompatActivity {
 
     int code = -1;

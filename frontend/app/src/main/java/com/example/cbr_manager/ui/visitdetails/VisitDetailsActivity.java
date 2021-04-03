@@ -17,6 +17,9 @@ import android.widget.EditText;
 import com.example.cbr_manager.R;
 import java.util.Objects;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class VisitDetailsActivity extends AppCompatActivity {
 
     public  static String KEY_VISIT_ID = "KEY_VISIT_ID";

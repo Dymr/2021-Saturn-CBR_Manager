@@ -9,6 +9,7 @@ import com.example.cbr_manager.utils.Helper;
 import org.threeten.bp.ZonedDateTime;
 
 import java.io.File;
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ClientRepository {
 
     public Observable<Client> getAllClient(){
         return clientAPI.getClientsObs(authHeader)
-                .flatMap(Observable::fromIterable)
+                .flatMapIterable(clients -> clients)
                 .doOnNext(client -> clientDao.insert(client))
                 .onErrorResumeNext(this::getLocalClient)
                 .subscribeOn(Schedulers.io())
@@ -50,10 +51,7 @@ public class ClientRepository {
     }
 
     private ObservableSource<? extends Client> getLocalClient(Throwable throwable) {
-        if(throwable instanceof SocketTimeoutException) {
-            return clientDao.getClientsObs().flatMap(Observable::fromIterable);
-        }
-        return Observable.error(throwable);
+        return clientDao.getClientsObs().toObservable().flatMap(Observable::fromIterable);
     }
 
     public Single<Client> getClient(int id) {
@@ -96,11 +94,8 @@ public class ClientRepository {
     }
 
     private SingleSource<? extends Client> handleOfflineModifyClient(Client client, Throwable throwable) {
-        if(throwable instanceof SocketTimeoutException) {
-            clientDao.update(client);
-            return Single.just(client);
-        }
-        return Single.error(throwable);
+        clientDao.update(client);
+        return Single.just(client);
     }
 
     // Below are functions for synchronizing data from local and remote server
@@ -156,7 +151,7 @@ public class ClientRepository {
     // Sync function concatenating multiple observable
     public Completable sync() {
         Observable<Client> uploadNew = clientDao.getClientsObs()
-                .flatMap(Observable::fromIterable)
+                .toObservable().flatMap(Observable::fromIterable)
                 .doOnNext(this::uploadNewClient)
                 .doOnComplete(() -> {});
 
@@ -171,7 +166,7 @@ public class ClientRepository {
                 .doOnComplete(() -> {});
 
         Observable<Client> setNew = clientDao.getClientsObs()
-                .flatMap(Observable::fromIterable)
+                .toObservable().flatMap(Observable::fromIterable)
                 .doOnNext(this::setNewClient)
                 .doOnComplete(() -> {});
 

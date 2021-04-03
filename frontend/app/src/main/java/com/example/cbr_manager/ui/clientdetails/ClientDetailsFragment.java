@@ -19,10 +19,8 @@ import com.example.cbr_manager.service.APIService;
 import com.example.cbr_manager.service.client.Client;
 import com.example.cbr_manager.ui.client_history.ClientHistoryFragment;
 import com.example.cbr_manager.ui.createreferral.CreateReferralActivity;
-import com.example.cbr_manager.ui.createvisit.CreateVisitActivity;
 import com.example.cbr_manager.ui.createvisit.CreateVisitStepperActivity;
 import com.example.cbr_manager.ui.referral.referral_list.ReferralListFragment;
-import com.example.cbr_manager.ui.visitdetails.VisitDetailsEditFragment;
 import com.example.cbr_manager.ui.visits.VisitsFragment;
 import com.example.cbr_manager.utils.Helper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -82,10 +80,13 @@ public class ClientDetailsFragment extends Fragment {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId()) {
+                switch (item.getItemId()) {
                     case R.id.visitsFragment:
+                        Bundle args = new Bundle();
+                        args.putInt(VisitsFragment.KEY_CLIENT_ID, clientId);
+
                         getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(android.R.id.content, new VisitsFragment())
+                                .replace(android.R.id.content, VisitsFragment.class, args)
                                 .addToBackStack(null)
                                 .commit();
                         break;

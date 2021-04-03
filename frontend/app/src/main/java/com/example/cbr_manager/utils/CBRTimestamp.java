@@ -13,6 +13,11 @@ abstract public class CBRTimestamp {
     @Expose
     private String createdAt;
 
+    public CBRTimestamp(){
+        this.updatedAt = Helper.getCurrentUTCTime().toString();
+        this.createdAt = Helper.getCurrentUTCTime().toString();
+    }
+
     public CBRTimestamp(String updatedAt, String createdAt) {
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;

@@ -57,6 +57,11 @@
                 android:icon="@drawable/ic_edit"
                 android:title="Alert Creation (Admin only)"
                 />
+            <item
+                android:id="@+id/nav_statistics"
+                android:icon="@drawable/ic_edit"
+                android:title="Statistics (Admin only)"
+                />
 
         </menu>
     </item>

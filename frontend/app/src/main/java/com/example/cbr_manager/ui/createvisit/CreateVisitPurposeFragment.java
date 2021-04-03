@@ -1,24 +1,23 @@
 package com.example.cbr_manager.ui.createvisit;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.cbr_manager.R;
-import com.example.cbr_manager.service.APIService;
 import com.example.cbr_manager.service.client.Client;
 import com.example.cbr_manager.service.user.User;
 import com.example.cbr_manager.service.visit.Visit;
 import com.example.cbr_manager.ui.AuthViewModel;
+import com.example.cbr_manager.ui.ClientViewModel;
 import com.google.android.material.chip.Chip;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
@@ -29,20 +28,9 @@ import java.util.Date;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.observers.DisposableSingleObserver;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @AndroidEntryPoint
 public class CreateVisitPurposeFragment extends Fragment implements Step {
-
-    private View view;
-    private AuthViewModel authViewModel;
-    private APIService apiService = APIService.getInstance();
-    private int clientId = -1;
-    private int userId = -1;
-    
-    private Visit visit;
 
     EditText clientNameEditText;
     EditText cbrWorkerName;
@@ -53,6 +41,12 @@ public class CreateVisitPurposeFragment extends Fragment implements Step {
     Chip healthChip;
     Chip educationChip;
     Chip socialChip;
+    private View view;
+    private AuthViewModel authViewModel;
+    private ClientViewModel clientViewModel;
+    private int clientId = -1;
+    private int userId = -1;
+    private Visit visit;
 
     public CreateVisitPurposeFragment() {
         // Required empty public constructor
@@ -60,8 +54,9 @@ public class CreateVisitPurposeFragment extends Fragment implements Step {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         super.onCreate(savedInstanceState);
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        clientViewModel = new ViewModelProvider(this).get(ClientViewModel.class);
     }
 
     @Override
@@ -89,37 +84,35 @@ public class CreateVisitPurposeFragment extends Fragment implements Step {
         clientNameEditText = view.findViewById(R.id.fragmentPreambleClientEditText);
         cbrWorkerName = view.findViewById(R.id.fragmentPreambleCBRNameEditText);
         dateEditText = view.findViewById(R.id.fragmentPreambleEditTextDate);
-        if (apiService.isAuthenticated()) {
-            apiService.clientService.getClient(clientId).enqueue(new Callback<Client>() {
-                @Override
-                public void onResponse(Call<Client> call, Response<Client> response) {
-                    if (response.isSuccessful()) {
-                        Client client = response.body();
-                        clientNameEditText.setText(client.getFullName());
-                        clientNameEditText.setEnabled(false);
-                    }
-                }
-                @Override
-                public void onFailure(Call<Client> call, Throwable t) {
-                }
-            });
 
-            authViewModel.getUser().subscribe(new DisposableSingleObserver<User>() {
-                @Override
-                public void onSuccess(@io.reactivex.annotations.NonNull User user) {
-                    userId = user.getId();
-                    visit.setUserId(userId);
-                    visit.setCbrWorkerName(user.getUsername());
-                    cbrWorkerName.setText(user.getUsername());
-                    cbrWorkerName.setEnabled(false);
-                }
+        clientViewModel.getClient(clientId).subscribe(new DisposableSingleObserver<Client>() {
+            @Override
+            public void onSuccess(@io.reactivex.annotations.NonNull Client client) {
+                clientNameEditText.setText(client.getFullName());
+                clientNameEditText.setEnabled(false);
+            }
 
-                @Override
-                public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-                    Toast.makeText(getContext(), "User response error. " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+            @Override
+            public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+
+            }
+        });
+
+        authViewModel.getUser().subscribe(new DisposableSingleObserver<User>() {
+            @Override
+            public void onSuccess(@io.reactivex.annotations.NonNull User user) {
+                userId = user.getId();
+                visit.setUserId(userId);
+                visit.setCbrWorkerName(user.getUsername());
+                cbrWorkerName.setText(user.getUsername());
+                cbrWorkerName.setEnabled(false);
+            }
+
+            @Override
+            public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                Toast.makeText(getContext(), "User response error. " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Date today = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

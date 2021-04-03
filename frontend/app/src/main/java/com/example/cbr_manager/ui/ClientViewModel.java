@@ -50,4 +50,7 @@ public class ClientViewModel extends ViewModel {
     }
 
 
+    public Single<Client> getClient(int id) {
+        return clientRepository.getClient(id);
+    }
 }

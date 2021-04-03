@@ -4,9 +4,10 @@ from django.utils import timezone
 
 
 from clients.models import Client
+from tools.models import TimestampedModel
 
-class Visit(models.Model):
-    datetime_created = models.DateTimeField(auto_now_add=True)
+
+class Visit(TimestampedModel):
     user_creator = models.ForeignKey(User, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
 

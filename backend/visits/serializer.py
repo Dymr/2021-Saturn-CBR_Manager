@@ -9,7 +9,7 @@ from visits.utils import differentiate_key_value, update_object
 
 class VisitSerializer(serializers.ModelSerializer):
     client_id = serializers.IntegerField(required=True)
-    client = ClientSerializer(write_only=True, required=True)
+    client = ClientSerializer(required=True)
 
     class Meta:
         model = Visit

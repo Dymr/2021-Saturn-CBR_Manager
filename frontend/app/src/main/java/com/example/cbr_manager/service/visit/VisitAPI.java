@@ -4,6 +4,8 @@ import com.example.cbr_manager.service.client.Client;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -28,6 +30,15 @@ public interface VisitAPI {
 
     @POST("api/visits/")
     Call<Visit> createVisit(@Header("Authorization") String authHeader, @Body Visit visit);
+
+    @GET("api/visits/")
+    Observable<List<Visit>> getVisitsObs(@Header("Authorization") String authHeader);
+
+    @GET("api/visits/{id}")
+    Single<Visit> getVisitObs(@Header("Authorization") String authHeader, @Path("id") int id);
+
+    @POST("api/visits/")
+    Single<Visit> createVisitObs(@Header("Authorization") String authHeader, @Body Visit visit);
 }
 
 

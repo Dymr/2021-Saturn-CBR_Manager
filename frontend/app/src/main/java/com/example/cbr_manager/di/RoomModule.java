@@ -10,6 +10,7 @@ import com.example.cbr_manager.service.client.ClientDao;
 import com.example.cbr_manager.service.referral.ReferralDao;
 import com.example.cbr_manager.service.sync.StatusDao;
 import com.example.cbr_manager.service.user.UserDao;
+import com.example.cbr_manager.service.visit.VisitDao;
 
 import javax.inject.Singleton;
 
@@ -59,5 +60,11 @@ public class RoomModule {
     @Provides
     ReferralDao provideReferralDao(RoomDB roomDB) {
         return roomDB.referralDao();
+    }
+
+    @Singleton
+    @Provides
+    VisitDao provideVisitDao(RoomDB roomDB) {
+        return roomDB.visitDao();
     }
 }

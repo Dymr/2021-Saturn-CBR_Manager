@@ -105,7 +105,7 @@ public class NavigationActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_dashboard, R.id.nav_client_list, R.id.nav_visits, R.id.nav_user_creation, R.id.nav_alert_creation, R.id.nav_referrals, R.id.nav_alert_list)
+                R.id.nav_home, R.id.nav_dashboard, R.id.nav_client_list, R.id.nav_visits, R.id.nav_user_creation, R.id.nav_alert_creation, R.id.nav_referrals, R.id.nav_alert_list, R.id.nav_statistics)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -176,14 +176,16 @@ public class NavigationActivity extends AppCompatActivity {
                 navFirstName.setText(user.getFirstName());
                 navEmail.setText(user.getEmail());
 
-                userInfoGroup.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(NavigationActivity.this, UserActivity.class);
-                        intent.putExtra(UserActivity.KEY_USER_ID, user.getId());
-                        startActivity(intent);
-                    }
-                });
+                for(int id: userInfoGroup.getReferencedIds()){
+                    headerView.findViewById(id).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(NavigationActivity.this, UserActivity.class);
+                            intent.putExtra(UserActivity.KEY_USER_ID, user.getId());
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
 
             @Override

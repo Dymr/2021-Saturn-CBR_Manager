@@ -2,7 +2,6 @@ package com.example.cbr_manager.ui.visitdetails;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,36 +12,34 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cbr_manager.R;
-import com.example.cbr_manager.service.APIService;
 import com.example.cbr_manager.service.client.Client;
 import com.example.cbr_manager.service.visit.Visit;
+import com.example.cbr_manager.ui.VisitViewModel;
 import com.example.cbr_manager.utils.Helper;
 import com.google.android.material.snackbar.Snackbar;
+
+import org.threeten.bp.format.FormatStyle;
 
 import java.sql.Timestamp;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.observers.DisposableSingleObserver;
 
+@AndroidEntryPoint
 public class VisitDetailsFragment extends Fragment {
 
-
-
-    private APIService apiService = APIService.getInstance();
-    private View parentLayout;
     public static String KEY_VISIT_ID = "KEY_VISIT_ID";
-    private int visitId = -1;
-
-    public VisitDetailsFragment() {
-        // Required empty public constructor
-    }
+    private int visitId;
+    private VisitViewModel visitViewModel;
 
     public static VisitDetailsFragment newInstance(String param1, String param2) {
         VisitDetailsFragment fragment = new VisitDetailsFragment();
@@ -59,26 +56,24 @@ public class VisitDetailsFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public VisitDetailsFragment() {
+        super(R.layout.fragment_visit_details);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        visitViewModel = new ViewModelProvider(this).get(VisitViewModel.class);
+    }
 
-        View root = inflater.inflate(R.layout.fragment_visit_details, container, false);
-        parentLayout = root.findViewById(android.R.id.content);
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         setUpToolBar();
 
-        visitId = getArguments().getInt(KEY_VISIT_ID, -1);
+        visitId = requireArguments().getInt(KEY_VISIT_ID, -1);
 
         getVisitInfo(visitId);
-
-        return root;
     }
 
     public void setUpToolBar() {
@@ -111,63 +106,30 @@ public class VisitDetailsFragment extends Fragment {
                 .commit();
     }
 
-
-    private void getClientInfo(int clientId) {
-        apiService.clientService.getClient(clientId).enqueue(new Callback<Client>() {
-            @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
-
-                if (response.isSuccessful()) {
-                    Client client = response.body();
-
-                    // Todo: dynamically set the client info here
-                    setupNameTextView(client.getFullName());
-                    setupImageViews(client.getPhotoURL());
-
-
-                } else {
-                    Snackbar.make(getView().findViewById(R.id.content), "Failed to get the client. Please try again", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Client> call, Throwable t) {
-
-            }
-        });
-    }
-
     private void getVisitInfo(int visitId) {
-        apiService.visitService.getVisit(visitId).enqueue(new Callback<Visit>() {
+        visitViewModel.getVisit(visitId).subscribe(new DisposableSingleObserver<Visit>() {
             @Override
-            public void onResponse(Call<Visit> call, Response<Visit> response) {
+            public void onSuccess(@io.reactivex.annotations.NonNull Visit visit) {
+                String datetimeCreated = visit.getCreatedAt();
+                String formattedDate = Helper.formatDateTimeToLocalString(datetimeCreated, FormatStyle.SHORT);
 
-                if (response.isSuccessful()) {
-                    Visit visit = response.body();
+                setupDateTextView(formattedDate);
 
-                    // Todo: dynamically set the client info here
-                    Timestamp datetimeCreated = visit.getDatetimeCreated();
-                    Format formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-                    String formattedDate = formatter.format(datetimeCreated);
-                    setupDateTextView(formattedDate);
+                Client client = visit.getClient();
+                setupNameTextView(client.getFullName());
+                setupImageViews(client.getPhotoURL());
 
-                    getClientInfo(visit.getClientId());
-                    setupLocationTextView(visit.getLocationDropDown());
-                    setupVillageNumTextView(visit.getVillageNoVisit().toString());
-                    setupHealthTextViews(visit);
-                    setupEducationTextViews(visit);
-                    setupSocialTextViews(visit);
-
-                } else {
-                    Snackbar.make(parentLayout, "Failed to get the client. Please try again", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
+                setupLocationTextView(visit.getLocationDropDown());
+                setupVillageNumTextView(visit.getVillageNoVisit().toString());
+                setupHealthTextViews(visit);
+                setupEducationTextViews(visit);
+                setupSocialTextViews(visit);
             }
 
             @Override
-            public void onFailure(Call<Visit> call, Throwable t) {
-
+            public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                Snackbar.make(getView(), "Failed to get the client. Please try again", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }

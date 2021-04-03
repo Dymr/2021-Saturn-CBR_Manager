@@ -10,6 +10,7 @@ import com.example.cbr_manager.service.user.UserAPI;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
 import javax.inject.Inject;
@@ -83,12 +84,7 @@ public class AuthRepository {
 
     @NotNull
     private SingleSource<? extends AuthDetail> handleOfflineCachedLoginError(Throwable throwable) {
-        if (throwable instanceof SocketTimeoutException) {
-            // Fallback to local database
-            return authDetailDao.getAuthDetail().observeOn(Schedulers.io());
-        }
-        // API Authentication error
-        return Single.error(throwable);
+        return authDetailDao.getAuthDetail().observeOn(Schedulers.io());
     }
 
 

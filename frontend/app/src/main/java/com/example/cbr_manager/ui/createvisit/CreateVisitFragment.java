@@ -52,20 +52,14 @@ public class CreateVisitFragment extends Fragment {
     private String username = "";
     private AuthViewModel authViewModel;
 
-    public void CreateVisitFragment() {
+    public CreateVisitFragment() {
+        super(R.layout.fragment_new_visit);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_visit, container, false);
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
     }
 
     @Override

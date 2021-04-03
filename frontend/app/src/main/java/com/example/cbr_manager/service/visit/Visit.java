@@ -3,19 +3,17 @@ package com.example.cbr_manager.service.visit;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.RoomWarnings;
 
 import com.example.cbr_manager.service.client.Client;
+import com.example.cbr_manager.utils.CBRTimestamp;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.Timestamp;
-
 @Entity(tableName = "visit")
-public class Visit {
+public class Visit extends CBRTimestamp {
 
     @SerializedName("id")
     @Expose
@@ -37,13 +35,9 @@ public class Visit {
 
     @SerializedName("client")
     @Expose
-    @Embedded
+    @Embedded(prefix = "client_")
     @SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)
     private Client client;
-
-    @SerializedName("datetime_created")
-    @Expose
-    private Timestamp datetimeCreated;
 
     @SerializedName("is_cbr_purpose")
     @Expose
@@ -323,12 +317,6 @@ public class Visit {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public Timestamp getDatetimeCreated() { return this.datetimeCreated; }
-
-    public void setDatetimeCreated(Timestamp datetimeCreated) {
-        this.datetimeCreated = datetimeCreated;
     }
 
     public boolean isCBRPurpose() {
