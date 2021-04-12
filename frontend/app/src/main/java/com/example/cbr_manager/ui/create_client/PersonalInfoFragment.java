@@ -1,22 +1,29 @@
 package com.example.cbr_manager.ui.create_client;
 
+import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.service.client.Client;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
+
+import java.util.Calendar;
 
 import static com.example.cbr_manager.ui.create_client.ValidatorHelper.validateStepperTextViewNotNull;
 
@@ -25,7 +32,7 @@ public class PersonalInfoFragment extends Fragment implements Step {
 
     private Spinner genderSpinner;
 
-    private EditText editTextFirstName, editTextLastName, editTextAge, editTextContactNumber;
+    private EditText editTextFirstName, editTextLastName, editTextBirthdate, editTextContactNumber;
 
     private Client client;
 
@@ -47,13 +54,14 @@ public class PersonalInfoFragment extends Fragment implements Step {
 
         editTextLastName = setUpEditView(view, R.id.editTextLastName);
 
-        editTextAge = setUpEditView(view, R.id.editTextAge);
+        editTextBirthdate = setUpEditView(view, R.id.editTextBirthdate);
 
         editTextContactNumber = setUpEditView(view, R.id.editTextContactNumber);
 
         genderSpinner = setUpSpinner(view, R.id.gender_dropdown, paths);
 
         setUpLocationSpinner(view);
+        setupDatePicker();
 
         editTextVillageNum = (EditText) view.findViewById(R.id.editTextVillageNum);
 
@@ -67,7 +75,7 @@ public class PersonalInfoFragment extends Fragment implements Step {
             validateStepperTextViewNotNull(editTextVillageNum, "Required");
             validateStepperTextViewNotNull(editTextFirstName, "Required");
             validateStepperTextViewNotNull(editTextLastName, "Required");
-            validateStepperTextViewNotNull(editTextAge, "Required");
+            validateStepperTextViewNotNull(editTextBirthdate, "Required");
             validateStepperTextViewNotNull(editTextContactNumber, "Required");
         } catch (InvalidCreateClientFormException e) {
             errorTextView = e.view;
@@ -77,6 +85,31 @@ public class PersonalInfoFragment extends Fragment implements Step {
         updateClient();
 
         return null;
+    }
+
+    private void setupDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        editTextBirthdate.setText(year + "/" + (month + 1) + "/" + day);
+        editTextBirthdate.setFocusable(false);
+        editTextBirthdate.setClickable(false);
+        editTextBirthdate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog picker = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                editTextBirthdate.setText(year + "/" + (month + 1) + "/" + dayOfMonth);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
     }
 
     @Override
@@ -107,7 +140,7 @@ public class PersonalInfoFragment extends Fragment implements Step {
     public void updateClient() {
         client.setFirstName(editTextFirstName.getText().toString().trim());
         client.setLastName(editTextLastName.getText().toString().trim());
-        client.setAge(Integer.parseInt(editTextAge.getText().toString().trim()));
+        client.setBirthdate(editTextBirthdate.getText().toString().trim());
         client.setContactClient(editTextContactNumber.getText().toString().trim());
 
         client.setGender(genderSpinner.getSelectedItem().toString().trim());

@@ -50,6 +50,9 @@ public class Client extends CBRTimestamp {
     @SerializedName("age")
     @Expose
     private Integer age;
+    @SerializedName("birthdate")
+    @Expose
+    private String birthdate;
     @SerializedName("contact_client")
     @Expose
     private String contactClient;
@@ -127,6 +130,7 @@ public class Client extends CBRTimestamp {
         this.lastName = "";
         this.contactClient = "";
         this.age = 0;
+        this.birthdate = "";
         this.gender = "";
         this.location = "";
         this.villageNo = 0;
@@ -147,7 +151,7 @@ public class Client extends CBRTimestamp {
     }
 
     @Ignore
-    public Client(String consent, String date, String firstName, String lastName, String contactClient, int age,
+    public Client(String consent, String date, String firstName, String lastName, String contactClient, String birthdate,
                   String gender, int id, String location, int villageNo, String disability,
                   String carePresent, String contactCare) {
         super(Helper.getCurrentUTCTime().toString(), Helper.getCurrentUTCTime().toString());
@@ -156,7 +160,7 @@ public class Client extends CBRTimestamp {
         this.firstName = firstName;
         this.lastName = lastName;
         this.contactClient = contactClient;
-        this.age = age;
+        this.birthdate = birthdate;
         this.gender = gender;
         this.id = id;
         this.location = location;
@@ -253,6 +257,10 @@ public class Client extends CBRTimestamp {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    public String getBirthdate() { return birthdate; }
+
+    public void setBirthdate(String birthdate) { this.birthdate = birthdate; }
 
     public String getContactClient() {
         return contactClient;

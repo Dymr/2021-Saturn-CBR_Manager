@@ -19,7 +19,7 @@
     <string name="first_name">First Name<font color='#FF0000'>*</font></string>
     <string name="last_name">Last Name<font color='#FF0000'>*</font></string>
     <string name="gender">Gender<font color='#FF0000'>*</font></string>
-    <string name="age">Age<font color='#FF0000'>*</font></string>
+    <string name="birthdate">Birthdate<font color='#FF0000'>*</font></string>
     <string name="contact_number">Contact Number(insert N/A if not available)<font color='#FF0000'>*</font></string>
     <string name="type_of_disability">Type of disability</string>
     <string name="caregiver_present">Caregiver present for interview<font color='#FF0000'>*</font></string>

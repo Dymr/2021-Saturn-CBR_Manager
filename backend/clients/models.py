@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 from tools.models import TimestampedModel
 
@@ -18,7 +19,7 @@ class Client(TimestampedModel):
     village_no = models.IntegerField(default=0)
     gender = models.CharField(max_length=20, blank=True)
     age = models.IntegerField(default=0) # auto generated
-    birthdate = models.DateTimeField(blank = True)
+    birthdate = models.DateField(auto_now_add=True)
     contact_client = models.CharField(max_length=30, blank=True)
     care_present = models.CharField(max_length=5, blank=True)
     contact_care = models.CharField(max_length=30, blank=True)
@@ -61,7 +62,7 @@ class Client(TimestampedModel):
         if not self.cbr_client_id:
             self.cbr_client_id = self._generate_cbr_client_id()
         
-        if not age:
+        if not self.age:
             self.age = self._generate_age()
 
         super(Client, self).save(*args, **kwargs)
@@ -90,6 +91,7 @@ class Client(TimestampedModel):
     def _generate_age(self):
         today = date.today()
         return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        
 
 
 class ClientHistoryRecord(models.Model):

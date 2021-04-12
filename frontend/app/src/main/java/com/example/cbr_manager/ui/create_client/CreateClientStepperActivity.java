@@ -140,6 +140,7 @@ public class CreateClientStepperActivity extends AppCompatActivity implements St
             @Override
             public void onSuccess(@io.reactivex.annotations.NonNull Client client) {
                 Log.d(TAG, "onSuccess Client created: " + client.getId());
+                Log.d("Testing", client.getBirthdate());
                 if(photoFile.exists()) {
                     clientViewModel.uploadphoto(photoFile, client).subscribe(new DisposableCompletableObserver() {
                         @Override
